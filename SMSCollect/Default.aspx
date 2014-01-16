@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        Welcome to SMS Collect</h2>
+        Welcome to SMS Collect </h2>
     <p>
         Witojcie!
     </p>
