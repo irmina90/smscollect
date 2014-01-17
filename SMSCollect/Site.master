@@ -27,14 +27,14 @@
   
         <div class="header">
             <div class="title">
-                <img src='back-header.jpg' style="width: 961px; margin-left: 0px" />
+                <img src='~back-header.jpg' style="width: 961px; margin-left: 0px" alt=" Logo" />
             </div>
           
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Wyślij SMS"/>
+                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="Historia"/>
                     </Items>
                 </asp:Menu>
             </div>
