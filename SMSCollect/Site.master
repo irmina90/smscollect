@@ -8,20 +8,8 @@
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body >
-    <form runat="server">
-     <div><br /> <br /> <br /> </div>
-    <div class="page">
-    
-        <div class="header">
-         
-            <div class="title">
-          
-                <h1>
-                  <img src="back-header.jpg" /> 
-                </h1>
-            </div>
-            <div class="loginDisplay">
+<body>
+    <div class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
                         [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
@@ -32,6 +20,16 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
+
+
+    <form runat="server">
+    <div class="page">
+  
+        <div class="header">
+            <div class="title">
+                <img src='back-header.jpg' style="width: 961px; margin-left: 0px" />
+            </div>
+          
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
