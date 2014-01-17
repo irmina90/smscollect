@@ -27,7 +27,7 @@
   
         <div class="header">
             <div class="title">
-                <img src='~back-header.jpg' style="width: 961px; margin-left: 0px" alt=" Logo" />
+                <img src='/SMSCollect/back-header.jpg' style="width: 961px; margin-left: 0px" alt=" Logo" />
             </div>
           
             <div class="clear hideSkiplink">

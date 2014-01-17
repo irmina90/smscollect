@@ -35,15 +35,12 @@
             Text="Spóźnię się 15 minut. Stoję na przejeździe. Przepraszam"></asp:Label>
              <asp:Button ID="szablon11" runat="server" onclick="szablon11_Click" 
             Text="Wybierz" /> 
-    <td class="style3"> <asp:Label ID="szablon2" runat="server" 
-            Text="Spóźnię się 15 minut. Stoję na przejeździe. Nie przepraszam. "></asp:Label>
-              <asp:Button ID="szablon22" runat="server" Text="Wybierz" /></td>
+    <td class="style3"> Z przyczyn obiektywnych dzisiejsze zajęcia zostały odwołane. 
+        Pozdrawiam Wojtyra-Tyrakowska.<asp:Button ID="szablon22" runat="server" Text="Wybierz" /></td>
     </tr>
     
     <tr>
-    <td class="style1"> <asp:Label ID="szablon3" runat="server" 
-            Text="Spóźnię się 45 minut. Stoję na przejeździe. Przepraszam"></asp:Label>
-             <asp:Button ID="szablon44" runat="server" Text="Wybierz" /></td>
+    <td class="style1"> Drodzy studenci, dzisiejsza wejściówka została odwołana.<asp:Button ID="szablon44" runat="server" Text="Wybierz" /></td>
     <td class="style4">
      <asp:Label ID="szablon4" runat="server" Text="Dzisiejsze zajęcia odwołane."></asp:Label>
       <asp:Button ID="szablon33" runat="server" Text="Wybierz" />

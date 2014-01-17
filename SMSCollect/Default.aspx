@@ -3,9 +3,16 @@
    
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-
-<!-- <script type="text/javascript">     function tmp()
-     { Label.valueOf = TextBox1.valueOf; }</script>-->
+<script language="javascript">
+    function OpenChild() {
+        var WinSettings = "center:yes;resizable:no;dialogHeight:500px"
+        var MyArgs = window.showModalDialog("http://localhost:50058/SMSCollect/Szablon.aspx", MyArgs, WinSettings);
+        if (MyArgs == null) {
+            window.alert("Nothing returned from child. No changes made to input boxes");
+        }
+     
+    }
+</script>
 </asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -23,10 +30,14 @@
     </asp:DropDownList>
        <br />
        <br />
+        <body>
+ 
+<P><BUTTON onclick="OpenChild()" type="button">Wybierz szablon</BUTTON></P>
+</body>
     Wpisz wiadomość:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                 
-    <asp:Button ID="szablon" runat="server" Text="Wybierz szablon" 
-           onclick="wybierz_szablon" />
     <br />
+ 
+
     <br />
     <asp:TextBox ID="TextBox1" runat="server" Height="162px" Width="395px" 
            TextMode="MultiLine"></asp:TextBox>
@@ -55,3 +66,4 @@
   
 
 </asp:Content>
+
