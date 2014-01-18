@@ -3,16 +3,8 @@
    
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-<script language="javascript">
-    function OpenChild() {
-        var WinSettings = "center:yes;resizable:no;dialogHeight:500px"
-        var MyArgs = window.showModalDialog("http://localhost:50058/SMSCollect/Szablon.aspx", MyArgs, WinSettings);
-        if (MyArgs == null) {
-            window.alert("Nothing returned from child. No changes made to input boxes");
-        }
-     
-    }
-</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/SMSCollect/js/podglad.js"></script>
 </asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -60,7 +52,8 @@
     margin-right: 2%;" >
     
         <asp:Label 
-         ID="Label1" runat="server" Text="Label" Height="600px" style=" margin-left: 15%; margin-top: 45%;" ></asp:Label>
+         ID="Label1" runat="server" Height="600px" 
+            style=" margin-left: 15%; margin-right: 15%; margin-top: 45%;" ></asp:Label>
  
      </div>
   
