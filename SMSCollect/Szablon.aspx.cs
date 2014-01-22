@@ -18,10 +18,9 @@ public partial class Szablon : System.Web.UI.Page
 
     }
 
-    //Default df = new Default();
     protected void szablon11_Click(object sender, EventArgs e)
     {
-       // string tresc = "Spóźnię się 15 minut. Stoję na przejeździe. Przepraszam.";
-       // df.Label1.
+        //Default d;
+        //label1.Tekxt = "Spóźnie się 15 minut.";
     }
 }
