@@ -37,7 +37,7 @@ public partial class About : System.Web.UI.Page
         TableCell godzina1 = new TableCell();
         godzina1.Text = "11:15";
         TableCell dostarczone1 = new TableCell();
-        dostarczone1.Text = "29/30";
+        dostarczone1.Text = "30/30";
         row2.Cells.Add(odbiorca1);
         row2.Cells.Add(tresc1);
         row2.Cells.Add(data1);

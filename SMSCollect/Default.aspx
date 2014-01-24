@@ -1,9 +1,9 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+﻿<%@ Page Title="Strona glowna" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="Default.aspx.cs" Inherits="_Default" %>
    
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-<script language="javascript">
+    <script language="javascript">
     function OpenChild() {
         var WinSettings = "center:yes;resizable:no;dialogHeight:500px"
         var MyArgs = window.showModalDialog("Szablon.aspx", MyArgs, WinSettings);
@@ -187,7 +187,7 @@
       </tr>
       <tr>
          <td colspan="2" style="text-align: center;">
-            <input id="btnSubmit" type="button" value="Submit" />
+            <input id="btnSubmit" type="button" value="Wybierz" />
          </td>
       </tr>
    </table>
