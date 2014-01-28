@@ -1,6 +1,7 @@
 (function( $ ){
 $(document).ready(function () {
 $("#MainContent_TextBox1").bind('input propertychange', function(){
+	var autor = "prof Abc";
 	var text = $("#MainContent_TextBox1").val();
 	text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
         .replace(/ć/g, 'c').replace(/Ć/g, 'C')
@@ -11,7 +12,7 @@ $("#MainContent_TextBox1").bind('input propertychange', function(){
         .replace(/ś/g, 's').replace(/Ś/g, 'S')
         .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
         .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
-	$(MainContent_Label1).text(text);
+	$("#MainContent_Label1").text("Od "+autor +": "+text);
 });
 });
 })( jQuery );
