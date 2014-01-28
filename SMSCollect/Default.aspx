@@ -36,13 +36,30 @@
         });
 
         $("#btnSubmit").click(function (e) {
+
             var brand = $("#brands input:radio:checked").val();
-            $("#MainContent_TextBox1").text(brand);
+            //$("#MainContent_TextBox1").text(brand);
+            document.getElementById("MainContent_TextBox1").value = brand;
+
+            var autor = "prof Abc";
+            var text = $("#MainContent_TextBox1").val();
+            text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
+                .replace(/ć/g, 'c').replace(/Ć/g, 'C')
+                .replace(/ę/g, 'e').replace(/Ę/g, 'E')
+                .replace(/ł/g, 'l').replace(/Ł/g, 'L')
+                .replace(/ń/g, 'n').replace(/Ń/g, 'N')
+                .replace(/ó/g, 'o').replace(/Ó/g, 'O')
+                .replace(/ś/g, 's').replace(/Ś/g, 'S')
+                .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
+                .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
+            $("#MainContent_Label1").text("Od "+autor +": "+text);
+
+
             HideDialog();
             e.preventDefault();
         });
 
-    });
+    })(jQuery);
 
     function ShowDialog(modal) {
         $("#overlay").show();
@@ -210,7 +227,9 @@
     <asp:CheckBox ID="CheckBox1" runat="server" Checked="True" 
         Text="Wyświetlane na tablicy" />
     <br />
-                                      <br />
+    <asp:CheckBox ID="CheckBox2" runat="server" 
+           Text="Zapisz jako szablon" />
+    <br />
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
     <asp:Button ID="Button2" runat="server" style="margin-left: 0px" Text="Wyślij" 
