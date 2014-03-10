@@ -22,15 +22,15 @@ public partial class Logon : System.Web.UI.Page
         string odpowiedz;
 
 
-            FileStream fsr = new FileStream(HttpContext.Current.Server.MapPath("plik.txt"), FileMode.Open, FileAccess.ReadWrite);
+        /*    FileStream fsr = new FileStream(HttpContext.Current.Server.MapPath("plik.txt"), FileMode.Open, FileAccess.ReadWrite);
             StreamWriter sr = new StreamWriter(fsr);
             sr.WriteLine(login);
             sr.WriteLine(haslo);
             sr.Close();
-            fsr.Close();
+            fsr.Close(); */
 
-            odpowiedz = p.loguj();
-            odpowiedzText.Text = odpowiedz;
+           odpowiedz = p.loguj(login, haslo);
+           odpowiedzText.Text = odpowiedz;
 
         
     }
