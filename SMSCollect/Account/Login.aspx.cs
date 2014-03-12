@@ -9,32 +9,58 @@ using System.IO;
 public partial class Account_Login : System.Web.UI.Page
 {
 
-    Program p = new Program();
+
   
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
-
-    public void LoginUser_Authenticate(object sender, AuthenticateEventArgs e)
+    public bool login(string user, string pass)
     {
 
-       // string login = LoginUser.UserName;
-        //string haslo = LoginUser.Password; 
-        //string odpowiedz;
+        string[] servers = { @"dc1.labs.wmi.amu.edu.pl", @"dc2.labs.wmi.amu.edu.pl" };
+        string suffix = @"labs.wmi.amu.edu.pl";
+        //int port = 636;
+        int port = 389;
+        string root = @"DC=labs,DC=wmi,DC=amu,DC=edu,DC=pl";
 
-        //p.loguj(login, haslo);
-        //odpowiedzText.Text = odpowiedz;
+
+        LdapCredentailValidation lucv = new LdapCredentailValidation(servers, port, suffix, root);
+        try
+        {
+            lucv.CheckUserCredential(LoginUser.UserName, LoginUser.Password);
+            // Console.WriteLine(lucv.CheckUserCredential(login, haslo));
+            return true; ;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Exception while checking credentials:" + e.ToString());
+            return false;
+
+        }
+
     }
 
-    protected void zaloguj_Click(object sender, EventArgs e)
+
+
+    protected void LoginUser_Authenticate(object sender, AuthenticateEventArgs e)
     {
-        string login = loginText.Text;
-        string haslo = hasloText.Text;
-        string odpowiedz;
+        bool ok = false;
+        ok = login(LoginUser.UserName, LoginUser.Password);
+        e.Authenticated = ok;
+        if (ok)
+        {
 
-        odpowiedz = p.loguj(login, haslo);
-        odpowiedzText.Text = odpowiedz;
+            // cos tam
+
+
+        }
+        else
+        {
+            // cos tam
+        }
+
     }
+
 }

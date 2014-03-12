@@ -9,17 +9,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Logowanie</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Witamy <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
-            </div>
+    
 
 
     <form runat="server">
@@ -29,13 +19,24 @@
             <div class="title">
                 <img src='/SMSCollect/back-header.jpg' style="width: 961px; margin-left: 0px" alt=" Logo" />
             </div>
+
+             <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Logowanie</a> ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Jesteś zalogowany jako <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>.
+                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Wyloguj" LogoutPageUrl="~/Account/Login.aspx"/> ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
           
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Wyślij SMS"/>
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="Historia"/>
-                        <asp:MenuItem NavigateUrl="~/Admin.aspx" Text="Konfiguracja"/>
                     </Items>
                 </asp:Menu>
             </div>

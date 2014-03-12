@@ -1,20 +1,49 @@
-﻿<%@ Page Title="Log In" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+﻿<%@ Page Title="Logowanie" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="Login.aspx.cs" Inherits="Account_Login" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
-<asp:Content ID="Content1" runat="server" contentplaceholderid="MainContent">
-    <asp:Label ID="Label1" runat="server" Text="Login:"></asp:Label>
-    <asp:TextBox ID="loginText" runat="server"></asp:TextBox>
-    <br />
-    <br />
-    <asp:Label ID="Label2" runat="server" Text="Hasło:"></asp:Label>
-    <asp:TextBox ID="hasloText" runat="server" TextMode="Password"></asp:TextBox>
-    <br />
-    <br />
-    <br />
-    <asp:Label ID="odpowiedzText" runat="server"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="zaloguj" runat="server" onclick="zaloguj_Click" 
-        Text="Zaloguj" />
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <h2>
+        Logowanie
+    </h2>
+    <p>
+        Wpisz nazwę użytkownika i hasło.
+    </p>
+    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" 
+        RenderOuterTable="false" onauthenticate="LoginUser_Authenticate"  >
+        <LayoutTemplate>
+            <span class="failureNotification">
+                <asp:Literal ID="FailureText" runat="server"></asp:Literal>
+            </span>
+            <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification" 
+                 ValidationGroup="LoginUserValidationGroup"/>
+            <div class="accountInfo">
+                <fieldset class="login">
+                    <legend>Informacje o koncie</legend>
+                    <p>
+                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Nazwa użytkownika:</asp:Label>
+                        <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" 
+                             CssClass="failureNotification" ErrorMessage="Podaj nazwę użytkownika." ToolTip="Podaj nazwę użytkownika." 
+                             ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
+                    </p>
+                    <p>
+                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Hasło:</asp:Label>
+                        <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" 
+                             CssClass="failureNotification" ErrorMessage="Podaj hasło." ToolTip="Podaj hasło." 
+                             ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
+                    </p>
+                    <p>
+                        <asp:CheckBox ID="RememberMe" runat="server"/>
+                        <asp:Label ID="RememberMeLabel" runat="server" AssociatedControlID="RememberMe" CssClass="inline">Nie wylogowuj mnie</asp:Label>
+                    </p>
+                </fieldset>
+                <p class="submitButton">
+                    <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Zaloguj" ValidationGroup="LoginUserValidationGroup" />
+                </p>
+            </div>
+        </LayoutTemplate>
+    </asp:Login>
 </asp:Content>
