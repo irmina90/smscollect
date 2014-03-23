@@ -148,17 +148,12 @@
        Do:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              
     <asp:DropDownList ID="DropDownList1" runat="server" 
            onselectedindexchanged="DropDownList1_SelectedIndexChanged" 
-           DataSourceID="SqlDataSource1" DataTextField="nazwa" DataValueField="nazwa">
-        <asp:ListItem>Poniedziałek</asp:ListItem>
-        <asp:ListItem Value="    DSTD - Struktury dyskretne, wykład - 1WA">    DSTD - Struktury dyskretne, wykład - 1WA - 15:30</asp:ListItem>
-        <asp:ListItem>    DSTD - Struktury Dyskretne - 1CA - 17.15 </asp:ListItem>
-        <asp:ListItem>Środa</asp:ListItem>
-        <asp:ListItem>    DSEM - Seminarium magisterskie - 1 CA - 10:00</asp:ListItem>
-        <asp:ListItem>    DSEM - Seminarium magisterskie - 1CB - 11:45</asp:ListItem>
+           DataTextField="nazwa" DataValueField="nazwa">       
     </asp:DropDownList>
+       <!-- 
        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
            ConnectionString="<%$ ConnectionStrings:smscollectConnectionString %>" 
-           SelectCommand="SELECT [nazwa] FROM [grupa]"></asp:SqlDataSource>
+           SelectCommand="SELECT [nazwa] FROM [grupa]"></asp:SqlDataSource> -->
        <br />
        <br />
         <body>
