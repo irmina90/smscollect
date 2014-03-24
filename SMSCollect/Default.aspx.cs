@@ -9,6 +9,7 @@ using System.Web.Services;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Threading;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -23,8 +24,20 @@ public partial class _Default : System.Web.UI.Page
 
         smsApiClient = new SMSApi.Api.SMSFactory(client());
         System.Diagnostics.Debug.WriteLine("wysyłanie");
-        getNumbersByGroupId(1);
+        //getNumbersByGroupId(1);
     }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        int groupId = Convert.ToInt32(DropDownList1.SelectedValue);
+        string[] numbers = (string[])getNumbersByGroupId(groupId).ToArray(typeof(string));
+        int y = 0;
+
+        String message = TextBox1.Text;
+        sendOneSMS(numbers, message);
+
+    }
+
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -46,7 +59,7 @@ public partial class _Default : System.Web.UI.Page
 
     }
 
-    public void sendOneSMS(String phoneNumber, String Message)
+    public void sendOneSMS(string[] phoneNumbers, String Message)
     {
         try
             {
@@ -54,14 +67,16 @@ public partial class _Default : System.Web.UI.Page
                 var result =
                         smsApiClient.ActionSend()
                             .SetText(Message)
-                            .SetTo(phoneNumber)
+                            .SetTo(phoneNumbers)
                             .SetDateSent(DateTime.Now)
                             .Execute();
                 System.Diagnostics.Debug.WriteLine("Send: " + result.Count);
 
                 System.Diagnostics.Debug.WriteLine("Get:");
 
-                waitForResponse(result);
+                Thread thread = new Thread(new ParameterizedThreadStart(waitForResponse));
+                thread.Start(result);
+
                
             }
             catch (SMSApi.Api.ActionException eg)
@@ -103,16 +118,7 @@ public partial class _Default : System.Web.UI.Page
                 System.Diagnostics.Debug.WriteLine(eg.Message);
             }       
     }
-    protected void Button2_Click(object sender, EventArgs e)
-    {
-        int groupId = Convert.ToInt32(DropDownList1.SelectedValue);
-        ArrayList numbers = getNumbersByGroupId(groupId);
-        foreach (var number in numbers)
-        {
-            String message = TextBox1.Text;
-            sendOneSMS(number.ToString(), message);
-        }
-    }
+    
 
     public ArrayList getNumbersByDay(int id)
     {
@@ -128,10 +134,18 @@ public partial class _Default : System.Web.UI.Page
         mySQLConnection.ConnectionString = connStr;
         mySQLConnection.Open();
 
-        String query = "SELECT telefon,aktywny_numer FROM " +
-            "Grupa_ INNER JOIN Grupy_Studenci " +
-            "ON Grupa_.ID=Grupy_Studenci.grupa INNER JOIN Student ON Student.ID = Grupy_Studenci.student " +
-            "WHERE Grupa_.ID = " + id;
+        String query;
+        query = "SELECT telefon,aktywny_numer FROM " +
+                "Grupa_ INNER JOIN Grupy_Studenci " +
+                "ON Grupa_.ID=Grupy_Studenci.grupa INNER JOIN Student ON Student.ID = Grupy_Studenci.student ";
+        if (id > 0)
+        {
+            query = query + "WHERE Grupa_.ID = " + id;
+        }
+        else
+        {
+            query = query + "WHERE dzien = " + -id;
+        }
 
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
         cmd.ExecuteNonQuery();
@@ -153,47 +167,67 @@ public partial class _Default : System.Web.UI.Page
         return numbers;
     }
 
-    public void waitForResponse(SMSApi.Api.Response.Status result)
+    public static void waitForResponse(object obj)
     {
-        //TODO powinno być w osobnym wątku, rozsadniej czekanie na jedna wiadomosc w jednym watku
         //czekaj 30 sekund
         System.Threading.Thread.Sleep(30000);
+        SMSApi.Api.Response.Status result = (SMSApi.Api.Response.Status)obj;
+        
+        string[] ids = new string[result.Count];
+        for (int i = 0, l = 0; i < result.List.Count; i++)
+        {
+            if (!result.List[i].isError())
+            {
+                //Nie wystąpił błąd podczas wysyłki (numer|treść|parametry... prawidłowe)
+                if (!result.List[i].isFinal())
+                {
+                    //Status nie jest koncowy, może ulec zmianie
+                    ids[l] = result.List[i].ID;
+                    l++;
+                }
+            }
+        }
+
         foreach (var status in result.List)
         {
-            //status.Status przechowuje informacje czy informacja zostala dostarczona 
             System.Diagnostics.Debug.WriteLine("ID: " + status.ID + " NUmber: " + status.Number + " Points:" +
                 status.Points + " Status:" + status.Status + " IDx: " + status.IDx);
         }
+       
     }
 
     public void setListGroup(String login)
     {
-        Hashtable weekDays = new Hashtable();
-        weekDays[1] = "Poniedziałek";
-        weekDays[2] = "Wtorek";
-        weekDays[3] = "Środa";
-        weekDays[4] = "Czwartek";
-        weekDays[5] = "Piątek";
-    
-        Hashtable listGroupByDay = getListGroup(login);
-        foreach (DictionaryEntry entry in listGroupByDay)
+        if (DropDownList1.Items.Count <= 0)
         {
-            int day = Convert.ToInt32(entry.Key.ToString());
-            DropDownList1.Items.Add(new ListItem(weekDays[day].ToString(), "day_" + entry.Key.ToString()));
-            ArrayList array = (ArrayList) entry.Value;
-            foreach(Hashtable item in array)
+            Hashtable weekDays = new Hashtable();
+            weekDays[1] = "Poniedziałek";
+            weekDays[2] = "Wtorek";
+            weekDays[3] = "Środa";
+            weekDays[4] = "Czwartek";
+            weekDays[5] = "Piątek";
+
+            SortedDictionary<int, ArrayList> listGroupByDay = getListGroup(login);
+
+            foreach (KeyValuePair<int, ArrayList> entry in listGroupByDay)
             {
-                foreach (DictionaryEntry el in item)
+                int day = Convert.ToInt32(entry.Key.ToString());
+                DropDownList1.Items.Add(new ListItem(weekDays[day].ToString(), "-" + entry.Key.ToString()));
+                ArrayList array = (ArrayList)entry.Value;
+                foreach (SortedDictionary<int, string> item in array)
                 {
-                    DropDownList1.Items.Add(new ListItem(el.Value.ToString(), el.Key.ToString()));
+                    foreach (KeyValuePair<int, string> el in item)
+                    {
+                        DropDownList1.Items.Add(new ListItem(el.Value.ToString(), el.Key.ToString()));
+                    }
                 }
             }
         }
     }
 
-    public Hashtable getListGroup(String login)
+    public SortedDictionary<int, ArrayList> getListGroup(String login)
     {
-        Hashtable listGroupByDay = new Hashtable();
+        SortedDictionary<int, ArrayList> listGroupByDay = new SortedDictionary<int, ArrayList>();
 
         SqlConnection mySQLConnection = new SqlConnection();
         mySQLConnection.ConnectionString = connStr;
@@ -214,7 +248,7 @@ public partial class _Default : System.Web.UI.Page
         da.Fill(dt);
         for (int i = 0; i < dt.Rows.Count; i++)
         {
-            Hashtable groupItem = new Hashtable();
+            SortedDictionary<int, String> groupItem = new SortedDictionary<int, String>();
             
             int id = Convert.ToInt32(dt.Rows[i]["ID"].ToString());
             String code = dt.Rows[i]["kod"].ToString();

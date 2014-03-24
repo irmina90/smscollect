@@ -147,8 +147,7 @@
        <br />
        Do:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              
     <asp:DropDownList ID="DropDownList1" runat="server" 
-           onselectedindexchanged="DropDownList1_SelectedIndexChanged" 
-           DataTextField="nazwa" DataValueField="nazwa">       
+           onselectedindexchanged="DropDownList1_SelectedIndexChanged">       
     </asp:DropDownList>
        <!-- 
        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
