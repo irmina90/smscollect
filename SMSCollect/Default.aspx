@@ -163,7 +163,15 @@
 <!-- <input type="button" id="btnShowModal" value="Modal Dialog" /> -->
    
 <br /><br />      
-   
+
+<!-- Pobieranie szablonoów zapisanych w bazie danych -->
+<asp:SqlDataSource 
+     ID="SqlDataSourceTemplate" 
+     runat="server" 
+     ConnectionString="<%$ ConnectionStrings:smscollectConnectionString %>" 
+     SelectCommand="SELECT tresc_szablonu FROM szablony">
+ </asp:SqlDataSource>
+
 <div id="output"></div>
    
 <div id="overlay" class="web_dialog_overlay"></div>
@@ -191,9 +199,12 @@
       <tr>
          <td colspan="2" style="padding-left: 15px;">
             <div id="brands">
-               <input id="brand1" name="brand" type="radio" checked="checked" value="Spóźnię się 15 minut." /> Spóźnię się 15 minut. <br /> <br />
-               <input id="brand2" name="brand" type="radio" value="Dzisiejsze zajęcia zostają odwołane." /> Dzisiejsze zajęcia zostają odwołane. <br /><br />
-               <input id="brand3" name="brand" type="radio" value="Odwołuję kolokwium." /> Odwołuję kolokwium. <br /><br />
+                <asp:RadioButtonList
+                      id="RadioButtonList1"
+                      runat="server"
+                      DataTextField="tresc_szablonu"
+                      DataSourceID="SqlDataSourceTemplate">
+                </asp:RadioButtonList>
             </div>
          </td>
       </tr>
