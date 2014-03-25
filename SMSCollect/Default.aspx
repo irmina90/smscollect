@@ -14,9 +14,7 @@
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/SMSCollect/js/podglad.js"></script>
-
 <script src="scripts/jquery-1.4.3.min.js" type="text/javascript"></script>
-
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -164,7 +162,7 @@
    
 <br /><br />      
 
-<!-- Pobieranie szablonoów zapisanych w bazie danych -->
+<!-- Pobieranie szablonów zapisanych w bazie danych -->
 <asp:SqlDataSource 
      ID="SqlDataSourceTemplate" 
      runat="server" 
