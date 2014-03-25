@@ -4,18 +4,27 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-   <p>Twoja historia</p>
-        <asp:Table ID="myTable" runat="server" Width="100%" Height="100%" 
-            BorderStyle="Solid" GridLines="Both"> 
-            <asp:TableRow style="font-weight: bold">
-                <asp:TableCell>Odbiorca</asp:TableCell>
-                <asp:TableCell>Tresc</asp:TableCell>
-                <asp:TableCell>Data</asp:TableCell>
-                <asp:TableCell>Godzina</asp:TableCell>
-                <asp:TableCell>Ilosc dostarczonych</asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>  
-    
+   <p>Twoja historia<asp:GridView ID="GridView1" runat="server" 
+           AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
+       <Columns>
+           <asp:BoundField DataField="Odbiorca" HeaderText="Odbiorca" 
+               SortExpression="Odbiorca" />
+           <asp:BoundField DataField="Tresc" HeaderText="Tresc" SortExpression="Tresc" />
+           <asp:BoundField DataField="Data" HeaderText="Data" SortExpression="Data" />
+           <asp:BoundField DataField="Godzina" HeaderText="Godzina" 
+               SortExpression="Godzina" />
+           <asp:BoundField DataField="Ilosc_dostarczonych" 
+               HeaderText="Ilosc_dostarczonych" SortExpression="Ilosc_dostarczonych" />
+           <asp:BoundField DataField="Ilosc_wyslanych" HeaderText="Ilosc_wyslanych" 
+               SortExpression="Ilosc_wyslanych" />
+       </Columns>
+       </asp:GridView>
+       <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+           ConnectionString="<%$ ConnectionStrings:smscollectConnectionString %>" 
+           SelectCommand="SELECT [Odbiorca], [Tresc], [Data], [Godzina], [Ilosc_dostarczonych], [Ilosc_wyslanych] FROM [tresc_sms]">
+       </asp:SqlDataSource>
+    </p>
+            
     
 </asp:Content>
 

@@ -31,11 +31,31 @@ public partial class _Default : System.Web.UI.Page
     {
         int groupId = Convert.ToInt32(DropDownList1.SelectedValue);
         string[] numbers = (string[])getNumbersByGroupId(groupId).ToArray(typeof(string));
-        int y = 0;
 
         String message = TextBox1.Text;
         sendOneSMS(numbers, message);
 
+        //dane z wysyłanej wiadomości
+        String login = LoginName1.FormatString;
+        String odbiorca = DropDownList1.SelectedItem.Text;
+        String date = DateTime.Today.ToString("yyyy-MM-dd");
+        String time = DateTime.Now.ToString("HH:mm:ss");
+
+        SqlConnection mySQLConnection = new SqlConnection();
+        mySQLConnection.ConnectionString = connStr;
+        mySQLConnection.Open();
+
+        //dodawanie do bazy wiadomości
+        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (autor, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) VALUES('" + login + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + 0 + "','" + 0 + "')", mySQLConnection);
+        /*c.Parameters.Add(new SqlParameter("a", login));
+        c.Parameters.Add(new SqlParameter("b", odbiorca));
+        c.Parameters.Add(new SqlParameter("f", message));
+        c.Parameters.Add(new SqlParameter("d", date));
+        c.Parameters.Add(new SqlParameter("e", date.TimeOfDay));
+        c.Parameters.Add(new SqlParameter("g", 0));
+        c.Parameters.Add(new SqlParameter("h", 0));*/
+        c.ExecuteNonQuery();
+        mySQLConnection.Close();
     }
 
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
