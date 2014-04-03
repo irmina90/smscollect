@@ -293,6 +293,16 @@ public partial class _Default : System.Web.UI.Page
         mySQLConnection.Close();
         return listGroupByDay;
     }
+
+
+    String name, lastname;
+    protected void user_Click(object sender, EventArgs e)
+    {
+        name = (string)Session["NAME"];
+        lastname = (string)Session["LASTNAME"];
+
+        lUser.Text = "Imię = " + name + "nazwisko = " + lastname;
+    }
 }
     
 

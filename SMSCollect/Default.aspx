@@ -243,6 +243,11 @@
             
     <asp:Button ID="Button2" runat="server" style="margin-left: 0px" Text="Wyślij" 
         Width="77px" onclick="Button2_Click" />
+       <br />
+       <br />
+       <asp:Button ID="user" runat="server" onclick="user_Click" 
+           Text="Imię i nazwisko" />
+       <asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
   </div> 
 
  <div style= " background: url(/SMSCollect/telefon.png) no-repeat; width: 37%;

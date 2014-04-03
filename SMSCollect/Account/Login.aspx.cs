@@ -9,7 +9,15 @@ using System.IO;
 public partial class Account_Login : System.Web.UI.Page
 {
 
+    public static string[] servers = { @"dc1.labs.wmi.amu.edu.pl", @"dc2.labs.wmi.amu.edu.pl" };
+    public static string suffix = @"labs.wmi.amu.edu.pl";
+    //int port = 636;
+    public static int port = 389;
+    public static string root = @"DC=labs,DC=wmi,DC=amu,DC=edu,DC=pl";
 
+    public String[] user = new String[2];
+
+    LdapCredentailValidation lucv = new LdapCredentailValidation(servers, port, suffix, root);
   
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -19,14 +27,9 @@ public partial class Account_Login : System.Web.UI.Page
     public bool login(string user, string pass)
     {
 
-        string[] servers = { @"dc1.labs.wmi.amu.edu.pl", @"dc2.labs.wmi.amu.edu.pl" };
-        string suffix = @"labs.wmi.amu.edu.pl";
-        //int port = 636;
-        int port = 389;
-        string root = @"DC=labs,DC=wmi,DC=amu,DC=edu,DC=pl";
 
 
-        LdapCredentailValidation lucv = new LdapCredentailValidation(servers, port, suffix, root);
+        
         try
         {
             lucv.CheckUserCredential(LoginUser.UserName, LoginUser.Password);
@@ -51,12 +54,11 @@ public partial class Account_Login : System.Web.UI.Page
         e.Authenticated = ok;
         if (ok)
         {
-
-            // cos tam
-
-
+           user = lucv.GetUserData(LoginUser.UserName);
+           Session["NAME"] = user[0];
+           Session["LASTNAME"] = user[1];
         }
-        else
+         else
         {
             // cos tam
         }
