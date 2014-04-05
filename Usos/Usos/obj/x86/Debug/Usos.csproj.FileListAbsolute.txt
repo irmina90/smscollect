@@ -1,0 +1,12 @@
+\\files\wmistaff\gmagdaa\my documents\visual studio 2010\Projects\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyReference.cache
+\\files\wmistaff\gmagdaa\my documents\visual studio 2010\Projects\Usos\Usos\bin\Debug\Usos.exe
+\\files\wmistaff\gmagdaa\my documents\visual studio 2010\Projects\Usos\Usos\bin\Debug\Usos.pdb
+\\files\wmistaff\gmagdaa\my documents\visual studio 2010\Projects\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
+\\files\wmistaff\gmagdaa\my documents\visual studio 2010\Projects\Usos\Usos\obj\x86\Debug\Usos.exe
+\\files\wmistaff\gmagdaa\my documents\visual studio 2010\Projects\Usos\Usos\obj\x86\Debug\Usos.pdb
+C:\Users\Magdalena\Desktop\Usos\Usos\obj\x86\Debug\Usos.exe
+C:\Users\Magdalena\Desktop\Usos\Usos\obj\x86\Debug\Usos.pdb
+C:\Users\Magdalena\Desktop\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyReference.cache
+C:\Users\Magdalena\Desktop\Usos\Usos\bin\Debug\Usos.exe
+C:\Users\Magdalena\Desktop\Usos\Usos\bin\Debug\Usos.pdb
+C:\Users\Magdalena\Desktop\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
