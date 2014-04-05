@@ -16,6 +16,7 @@ public partial class _Default : System.Web.UI.Page
     //czy na pewno factory?
     SMSApi.Api.SMSFactory smsApiClient;
     string connStr = ConfigurationManager.ConnectionStrings["smscollectConnectionString"].ConnectionString;
+    String name, lastname;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,6 +26,11 @@ public partial class _Default : System.Web.UI.Page
         smsApiClient = new SMSApi.Api.SMSFactory(client());
         System.Diagnostics.Debug.WriteLine("wysyłanie");
         //getNumbersByGroupId(1);
+
+        name = (string)Session["NAME"];
+        lastname = (string)Session["LASTNAME"];
+
+        lUser.Text = name + "" + lastname;
     }
 
     protected void Button2_Click(object sender, EventArgs e)
@@ -36,7 +42,9 @@ public partial class _Default : System.Web.UI.Page
         sendOneSMS(numbers, message);
 
         //dane z wysyłanej wiadomości
-        String login = LoginName1.FormatString;
+      
+       // String login = LoginName1.FormatString;
+        String login = name + "" + lastname;
         String odbiorca = DropDownList1.SelectedItem.Text;
         String date = DateTime.Today.ToString("yyyy-MM-dd");
         String time = DateTime.Now.ToString("HH:mm:ss");
@@ -295,13 +303,10 @@ public partial class _Default : System.Web.UI.Page
     }
 
 
-    String name, lastname;
+
     protected void user_Click(object sender, EventArgs e)
     {
-        name = (string)Session["NAME"];
-        lastname = (string)Session["LASTNAME"];
-
-        lUser.Text = "Imię = " + name + "nazwisko = " + lastname;
+  
     }
 }
     

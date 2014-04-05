@@ -1,7 +1,7 @@
 (function( $ ){
 $(document).ready(function () {
-$("#MainContent_TextBox1").bind('input propertychange', function(){
-	var autor = "prof Abc";
+    $("#MainContent_TextBox1").bind('input propertychange', function () {
+        var autor = $("#MainContent_lUser").val(); ;
 	var text = $("#MainContent_TextBox1").val();
 	text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
         .replace(/ć/g, 'c').replace(/Ć/g, 'C')

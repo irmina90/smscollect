@@ -39,7 +39,7 @@
             //$("#MainContent_TextBox1").text(brand);
             document.getElementById("MainContent_TextBox1").value = brand;
 
-            var autor = "prof Abc";
+            var autor = $("#MainContent_lUser").val(); 
             var text = $("#MainContent_TextBox1").val();
             text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
                 .replace(/ć/g, 'c').replace(/Ć/g, 'C')
@@ -50,7 +50,7 @@
                 .replace(/ś/g, 's').replace(/Ś/g, 'S')
                 .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
                 .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
-            $("#MainContent_Label1").text("Od "+autor +": "+text);
+            $("#MainContent_Label1").text("Od " + autor + ": " + text);
 
 
             HideDialog();
@@ -77,7 +77,9 @@
         $("#overlay").hide();
         $("#dialog").fadeOut(00);
     }
-       
+
+
+
 </script>
 
 <style type="text/css">
@@ -155,10 +157,8 @@
        <br />
         <body>
 
-        <!-- Tutaj wstawiam dziwny kod -->
-
    
-<!-- <input type="button" id="btnShowModal" value="Modal Dialog" /> -->
+
    
 <br /><br />      
 
@@ -167,7 +167,12 @@
      ID="SqlDataSourceTemplate" 
      runat="server" 
      ConnectionString="<%$ ConnectionStrings:smscollectConnectionString %>" 
-     SelectCommand="SELECT tresc_szablonu FROM szablony">
+     
+                SelectCommand="SELECT [tresc], [imie], [nazwisko] FROM [szablony] WHERE (([imie] = @imie) AND ([nazwisko] = @nazwisko))">
+    <SelectParameters>
+        <asp:SessionParameter Name="imie" SessionField="name" Type="String" />
+        <asp:SessionParameter Name="nazwisko" SessionField="lastname" Type="String" />
+    </SelectParameters>
  </asp:SqlDataSource>
 
 <div id="output"></div>
@@ -200,7 +205,7 @@
                 <asp:RadioButtonList
                       id="RadioButtonList1"
                       runat="server"
-                      DataTextField="tresc_szablonu"
+                      DataTextField="tresc"
                       DataSourceID="SqlDataSourceTemplate">
                 </asp:RadioButtonList>
             </div>
@@ -218,9 +223,8 @@
    </table>
 </div>
 
-<!-- Tutaj koncze dziwny kod -->
- <input type="button" id="btnShowModal" value="Wybierz szablon" />
- <!--  <P><BUTTON onclick="OpenChild()" type="button">Wybierz szablon</BUTTON></P>  -->
+ <input type="button" id="btnShowModal" value="Wybierz szablon" onclick="return btnShowModal_onclick()" />
+
 </body>
     Wpisz wiadomość:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                 
     <br />
@@ -238,7 +242,7 @@
     <asp:CheckBox ID="CheckBox2" runat="server" 
            Text="Zapisz jako szablon" />
     <br />
-           Wysyłasz wiadomość jako:&nbsp;<asp:LoginName ID="LoginName1" runat="server" />
+           Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
     <asp:Button ID="Button2" runat="server" style="margin-left: 0px" Text="Wyślij" 
@@ -247,7 +251,7 @@
        <br />
        <asp:Button ID="user" runat="server" onclick="user_Click" 
            Text="Imię i nazwisko" />
-       <asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
+       
   </div> 
 
  <div style= " background: url(/SMSCollect/telefon.png) no-repeat; width: 37%;
