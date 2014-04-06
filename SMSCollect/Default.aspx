@@ -12,6 +12,7 @@
             }
     }
 </script>
+<link href="Styles/Site.css" rel="stylesheet" type="text/css" media="all and (max-width: 1024px)"/> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/SMSCollect/js/podglad.js"></script>
 <script src="scripts/jquery-1.4.3.min.js" type="text/javascript"></script>
@@ -82,63 +83,6 @@
 
 </script>
 
-<style type="text/css">
-
-.web_dialog_overlay
-{
-   position: fixed;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   height: 100%;
-   width: 100%;
-   margin: 0;
-   padding: 0;
-   background: #000000;
-   opacity: .15;
-   filter: alpha(opacity=15);
-   -moz-opacity: .15;
-   z-index: 101;
-   display: none;
-}
-.web_dialog
-{
-   display: none;
-   position: fixed;
-   width: 380px;
-   height: 300px;
-   top: 50%;
-   left: 50%;
-   margin-left: -190px;
-   margin-top: -100px;
-   background-color: #ffffff;
-   border: 2px solid #336699;
-   padding: 0px;
-   z-index: 102;
-   font-family: Verdana;
-   font-size: 10pt;
-}
-.web_dialog_title
-{
-   border-bottom: solid 2px #336699;
-   background-color: #336699;
-   padding: 4px;
-   color: White;
-   font-weight:bold;
-}
-.web_dialog_title a
-{
-   color: White;
-   text-decoration: none;
-}
-.align_right
-{
-   text-align: right;
-}
-
-</style>
-
 </asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -155,10 +99,7 @@
            SelectCommand="SELECT [nazwa] FROM [grupa]"></asp:SqlDataSource> -->
        <br />
        <br />
-        <body>
-
-   
-
+<body>
    
 <br /><br />      
 
@@ -228,12 +169,10 @@
 </body>
     Wpisz wiadomość:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                 
     <br />
- 
-
     <br />
+
     <asp:TextBox ID="TextBox1" runat="server" Height="162px" Width="395px" 
-           TextMode="MultiLine"></asp:TextBox>
-                                
+           TextMode="MultiLine"></asp:TextBox>                
    
     <br />
     <asp:CheckBox ID="CheckBox1" runat="server" Checked="True" 
@@ -242,7 +181,7 @@
     <asp:CheckBox ID="CheckBox2" runat="server" 
            Text="Zapisz jako szablon" />
     <br />
-           Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
+       Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
     <asp:Button ID="Button2" runat="server" style="margin-left: 0px" Text="Wyślij" 
@@ -254,17 +193,9 @@
        
   </div> 
 
- <div style= " background: url(/SMSCollect/telefon.png) no-repeat; width: 37%;
-    float: left;
-    clear: right;
-    margin-right: 2%;" >
-    
-        <asp:Label 
-         ID="Label1" runat="server" Height="600px" 
-            style=" margin-left: 15%; margin-right: 15%; margin-top: 45%;" ></asp:Label>
- 
-     </div>
-  
+ <div class="phonePic">  <!-- zdjecie telefonu, tylko dekstop -->
+        <asp:Label ID="Label1" runat="server" Height="600px" style=" margin-left: 15%; margin-right: 15%; margin-top: 45%;" ></asp:Label>
+ </div>
 
 </asp:Content>
 

@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="Head1" runat="server">
     <title></title>
-    <link href="Styles/Site.css" rel="stylesheet" type="text/css" />
+        <link href="Styles/Site.css" rel="stylesheet" type="text/css" media="screen, handheld"/> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> <!--  screen size for a mobile device -->
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>

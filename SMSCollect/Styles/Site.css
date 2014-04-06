@@ -301,3 +301,94 @@ div.accountInfo
     text-align: right;
     padding-right: 10px;
 }
+
+.web_dialog_overlay
+{
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   background: #000000;
+   opacity: .15;
+   filter: alpha(opacity=15);
+   -moz-opacity: .15;
+   z-index: 101;
+   display: none;
+}
+.web_dialog
+{
+   display: none;
+   position: fixed;
+   width: 380px;
+   height: 300px;
+   top: 50%;
+   left: 50%;
+   margin-left: -190px;
+   margin-top: -100px;
+   background-color: #ffffff;
+   border: 2px solid #336699;
+   padding: 0px;
+   z-index: 102;
+   font-family: Verdana;
+   font-size: 10pt;
+}
+.web_dialog_title
+{
+   border-bottom: solid 2px #336699;
+   background-color: #336699;
+   padding: 4px;
+   color: White;
+   font-weight:bold;
+}
+.web_dialog_title a
+{
+   color: White;
+   text-decoration: none;
+}
+.align_right
+{
+   text-align: right;
+}
+
+/* RESPONSIVE DESIGN
+----------------------------------------------------------*/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) 
+{
+
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 768px) 
+{
+    .loginDisplay 
+    {
+        background-image: url('back-header-tablet.jpg') no-repeat;
+    }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1224px) 
+{
+    .loginDisplay
+    {
+        background-image: url('back-header.jpg');
+    }
+
+    div.phonePic 
+    {
+        background: url(/SMSCollect/Styles/telefon.png) no-repeat; 
+        width: 37%;
+        float: left;
+        clear: right;
+        margin-right: 2%;
+    }
+}
