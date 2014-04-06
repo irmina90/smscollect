@@ -169,7 +169,7 @@ div.menu ul li a, div.menu ul li a:visited
     float:left;
     display: inline-block;
     line-height: 1.35em;
-    padding: 4px 20px;
+    padding: 2.8px 20px;
     text-decoration: none;
     white-space: nowrap;
 }
@@ -361,16 +361,13 @@ div.accountInfo
     {
         background-color: White;
     }
-    
-    .logo-uam
-    {
-        background-image: url(logo-uam.jpg) no-repeat;
-    }
-    
+     
     div.menu
     {
         height: 1.5em;
-        margin-top: -1.2em;
+        -webkit-top: -1.2em;  
+        -moz-top:-1.2em; 
+        top: -1.4em;
     }
     
     div.hideSkiplink
@@ -400,7 +397,7 @@ div.accountInfo
     {
         float: left;
         padding-left: 1em;
-        padding-top: 1.2em;
+        padding-top: 0.4em;
     }
     
 
