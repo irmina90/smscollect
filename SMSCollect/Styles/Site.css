@@ -88,7 +88,6 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 78.4em;
     background-color: #fff;
     margin: 20px auto 0px auto;
     border: 1px solid #496077;
@@ -261,7 +260,6 @@ div.accountInfo
 
 .loginDisplay
 {
-    background-image: url('back-header.jpg');
     font-size: 1.1em;
     display: block;
     text-align: right;
@@ -359,25 +357,43 @@ div.accountInfo
 ----------------------------------------------------------*/
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 480px) 
+@media only screen and (min-width : 20em) /* 320px */
 {
+    .page
+    {
+        width: 25em;
+    }
+    
+    .loginDisplay 
+    {
+        background-image: none;
+    }
 
 }
 
 /* iPads (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 768px) 
+@media only screen and (min-width: 48em) /* 768px */
 {
+    .page
+    {
+        width: 55.5em;
+    }
+    
     .loginDisplay 
     {
-        background-image: url('back-header-tablet.jpg') no-repeat;
+        background-image: url(back-header-tablet.jpg);
     }
+            
 }
 
 /* Desktops and laptops ----------- */
-@media only screen and (min-width : 1224px) 
+@media only screen and (min-width: 76.5em) /* 1224 px */
 {
+    .page
+    {
+        width: 78.4em;
+    }
+    
     .loginDisplay
     {
         background-image: url('back-header.jpg');
