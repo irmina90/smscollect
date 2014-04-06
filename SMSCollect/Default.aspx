@@ -82,26 +82,21 @@
 
 
 </script>
-
 </asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <br />
-   <div style="width: 54%; float: left; clear: right; margin-right: 2%; margin-left: 2em;">  
-       <br />
-       Do:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;              
-    <asp:DropDownList ID="DropDownList1" runat="server" 
-           onselectedindexchanged="DropDownList1_SelectedIndexChanged">       
-    </asp:DropDownList>
-       <!-- 
-       <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-           ConnectionString="<%$ ConnectionStrings:smscollectConnectionString %>" 
-           SelectCommand="SELECT [nazwa] FROM [grupa]"></asp:SqlDataSource> -->
-       <br />
-       <br />
-<body>
+    <body>
+    <!-- poczatek lewej kolumny -->
+    <div class="left-column">  
+    <p>Odbiorca:</p>           
+    <asp:DropDownList class="list-subjects" ID="DropDownList1" runat="server" onselectedindexchanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
+        <!-- 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:smscollectConnectionString %>" 
+            SelectCommand="SELECT [nazwa] FROM [grupa]"></asp:SqlDataSource> -->
    
-<br /><br />      
+<br />      
 
 <!-- Pobieranie szablonów zapisanych w bazie danych -->
 <asp:SqlDataSource 
@@ -164,15 +159,9 @@
    </table>
 </div>
 
- <input type="button" id="btnShowModal" value="Wybierz szablon" onclick="return btnShowModal_onclick()" />
-
-</body>
-    Wpisz wiadomość:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                 
-    <br />
-    <br />
-
-    <asp:TextBox ID="TextBox1" runat="server" Height="162px" Width="395px" 
-           TextMode="MultiLine"></asp:TextBox>                
+ <input type="button" id="btnShowModal" value="Wybierz szablon" onclick="return btnShowModal_onclick()" style="margin-bottom: 1em" />
+    <p>Wpisz wiadomość:</p>
+    <asp:TextBox ID="TextBox1" runat="server" TextMode="MultiLine" class="box-sms" ></asp:TextBox>                
    
     <br />
     <asp:CheckBox ID="CheckBox1" runat="server" Checked="True" 
@@ -183,19 +172,16 @@
     <br />
        Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            
-    <asp:Button ID="Button2" runat="server" style="margin-left: 0px" Text="Wyślij" 
-        Width="77px" onclick="Button2_Click" />
+       <asp:Button ID="Button2" runat="server" Text="Wyślij" onclick="Button2_Click" class="button-send" />
        <br />
        <br />
-       <asp:Button ID="user" runat="server" onclick="user_Click" 
-           Text="Imię i nazwisko" />
-       
-  </div> 
+       <asp:Button ID="user" runat="server" onclick="user_Click" Text="Imię i nazwisko" />
+       </div> <!-- koniec lewej kolumny -->
 
- <div class="phonePic">  <!-- zdjecie telefonu, tylko dekstop -->
+    <div class="phonePic">  <!-- zdjecie telefonu, tylko dekstop -->
         <asp:Label ID="Label1" runat="server" Height="600px" style=" margin-left: 15%; margin-right: 15%; margin-top: 45%;" ></asp:Label>
- </div>
+    </div>
+    </body>
 
 </asp:Content>
 

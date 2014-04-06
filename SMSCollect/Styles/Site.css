@@ -110,11 +110,12 @@ first child of the left and right table columns */
     font-size: 2em;
 }
 
-.main
-{
-    padding: 0px 12px;
-    margin: 12px 8px 8px 8px;
-    min-height: 420px;
+.left-column 
+{ 
+    float: left; 
+    clear: right; 
+    margin-right: 2%; 
+    margin-left: 2em;
 }
 
 .leftCol
@@ -357,6 +358,26 @@ div.accountInfo
         margin: 0px auto 0px auto;
     }
     
+    .left-column 
+    {
+        width: 80%;
+    }
+    
+    .main
+    {
+        padding: 0;
+        margin: 0;
+        min-height: 480px;
+    }
+    
+    .list-subjects
+    {
+        display: block;
+        width: 20em;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+    }
+    
     .header 
     {
         background-color: White;
@@ -365,9 +386,8 @@ div.accountInfo
     div.menu
     {
         height: 1.5em;
-        -webkit-top: -1.2em;  
-        -moz-top:-1.2em; 
-        top: -1.4em;
+        -webkit-top: -1.4em;
+        top: -1.2em
     }
     
     div.hideSkiplink
@@ -400,6 +420,23 @@ div.accountInfo
         padding-top: 0.4em;
     }
     
+    .box-sms 
+    {
+        margin-bottom: 1em;
+        height: 10em;
+        width: 20em;
+    }
+    
+    .button-send
+    {
+        float:right;
+        width: 77px;
+    }
+    
+    div.phonePic
+    {
+        display: none;
+    }
 
 }
 
@@ -418,6 +455,18 @@ div.accountInfo
         margin: 20px auto 0px auto;
     }
     
+    .list-subjects
+    {
+        width: 40em;
+    }
+    
+    .main
+    {
+        padding: 0px 12px;
+        margin: 12px 8px 8px 8px;
+        min-height: 520px;
+    }
+    
     .loginDisplay 
     {
         background-image: url(back-header-tablet.jpg);
@@ -430,6 +479,18 @@ div.accountInfo
     {
         display: none;
     }
+    
+    .box-sms 
+    {
+        height: 15em;
+        width: 30em;
+    }
+    
+    .button-send
+    {
+        margin-right: 9.4em;
+        
+    }
             
 }
 
@@ -441,6 +502,16 @@ div.accountInfo
         width: 78.4em;
     }
     
+    .left-column
+    {
+        width: 54%;
+    }
+    
+    .list-subjects
+    {
+        width: 30em;
+    }
+    
     .loginDisplay
     {
         background-image: url('back-header.jpg');
@@ -448,10 +519,12 @@ div.accountInfo
 
     div.phonePic 
     {
+        display: block;
         background: url(/SMSCollect/Styles/telefon.png) no-repeat; 
         width: 37%;
         float: left;
         clear: right;
         margin-right: 2%;
     }
+    
 }
