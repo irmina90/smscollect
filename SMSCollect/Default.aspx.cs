@@ -10,10 +10,11 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public partial class _Default : System.Web.UI.Page
 {
-    //czy na pewno factory?
     SMSApi.Api.SMSFactory smsApiClient;
     string connStr = ConfigurationManager.ConnectionStrings["smscollectConnectionString"].ConnectionString;
     String name, lastname;
@@ -27,6 +28,8 @@ public partial class _Default : System.Web.UI.Page
         System.Diagnostics.Debug.WriteLine("wysyłanie");
         //getNumbersByGroupId(1);
 
+        parseJson();
+
         name = (string)Session["NAME"];
         lastname = (string)Session["LASTNAME"];
 
@@ -36,10 +39,11 @@ public partial class _Default : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         int groupId = Convert.ToInt32(DropDownList1.SelectedValue);
-        string[] numbers = (string[])getNumbersByGroupId(groupId).ToArray(typeof(string));
+        
+        string[] numbers = (string[])getNumbersByGroupId(groupId,"dziekanat").ToArray(typeof(string));
 
         String message = TextBox1.Text;
-        sendOneSMS(numbers, message);
+        sendSMS(numbers, message);
 
         //dane z wysyłanej wiadomości
       
@@ -82,12 +86,9 @@ public partial class _Default : System.Web.UI.Page
 
             return client;
      }
-    public void sendSMSToGroup()
-    {
 
-    }
 
-    public void sendOneSMS(string[] phoneNumbers, String Message)
+    public void sendSMS(string[] phoneNumbers, String Message)
     {
         try
             {
@@ -146,15 +147,8 @@ public partial class _Default : System.Web.UI.Page
                 System.Diagnostics.Debug.WriteLine(eg.Message);
             }       
     }
-    
 
-    public ArrayList getNumbersByDay(int id)
-    {
-        ArrayList numbers = new ArrayList();
-        return numbers;
-    }
-    
-    public ArrayList getNumbersByGroupId(int id)
+    public ArrayList getNumbersByGroupId(int id, String login)
     {
         ArrayList numbers = new ArrayList();
         
@@ -165,14 +159,22 @@ public partial class _Default : System.Web.UI.Page
         String query;
         query = "SELECT telefon,aktywny_numer FROM " +
                 "Grupa_ INNER JOIN Grupy_Studenci " +
-                "ON Grupa_.ID=Grupy_Studenci.grupa INNER JOIN Student ON Student.ID = Grupy_Studenci.student ";
+                "ON Grupa_.ID=Grupy_Studenci.grupa INNER JOIN Student ON Student.ID = Grupy_Studenci.student " +
+                "INNER JOIN Pracownik ON Grupa_.prowadzacy = Pracownik.ID ";
         if (id > 0)
         {
             query = query + "WHERE Grupa_.ID = " + id;
         }
         else
         {
-            query = query + "WHERE dzien = " + -id;
+            if (login != "dziekanat")
+            {
+                query = query + "WHERE dzien = " + -id + " AND login = \'" + login + "\'";
+            }
+            else
+            {
+                query = query + "WHERE dzien = " + -id;
+            }
         }
 
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
@@ -307,6 +309,15 @@ public partial class _Default : System.Web.UI.Page
     protected void user_Click(object sender, EventArgs e)
     {
   
+    }
+
+    public void parseJson()
+    {
+        String data = "{\"course_id\": \"06-DZJNUI0\", \"group_number\": 1,\"course_name\": { \"en\": \"Application of Information Technology in Natural Language Processing\", \"pl\": \"Zastosowania informatyki w przetwarzaniu języka naturalnego\" }, \"class_type\": { \"en\": \"lecture\", \"pl\": \"Wykład\"}}";
+        JObject o = JObject.Parse(data);
+        System.Diagnostics.Debug.WriteLine("id: "+o["course_id"]);
+        System.Diagnostics.Debug.WriteLine("nazwa: " + o["course_name"]["pl"]);
+        System.Diagnostics.Debug.WriteLine("typ zajęć: " + o["class_type"]["pl"]);
     }
 }
     
