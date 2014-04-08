@@ -58,6 +58,18 @@
             e.preventDefault();
         });
 
+        $("#Button1").click(function (e) {
+            PageMethods.Usun_szablon(onSuccessMethod, onFailMethod);
+            HideDialog();
+            e.preventDefault();
+        });
+        function onSuccessMethod(result) {
+        }
+
+
+        function onFailMethod(error) {
+        }
+
     })(jQuery);
 
     function ShowDialog(modal) {
@@ -85,6 +97,8 @@
 </asp:Content>
 
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+<asp:ScriptManager ID="ScriptMgr" runat="server" EnablePageMethods="true">
+                </asp:ScriptManager>
     <br />
     <body>
     <!-- poczatek lewej kolumny -->
@@ -154,6 +168,7 @@
       <tr>
          <td colspan="2" style="text-align: center;">
             <input id="btnSubmit" type="button" value="Wybierz" />
+            <input id="Button1" type="button" value="Usuń" />
          </td>
       </tr>
    </table>

@@ -58,16 +58,23 @@ public partial class _Default : System.Web.UI.Page
         mySQLConnection.Open();
 
         //dodawanie do bazy wiadomości
-        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (autor, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) VALUES('" + login + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + 0 + "','" + 0 + "')", mySQLConnection);
-        /*c.Parameters.Add(new SqlParameter("a", login));
-        c.Parameters.Add(new SqlParameter("b", odbiorca));
-        c.Parameters.Add(new SqlParameter("f", message));
-        c.Parameters.Add(new SqlParameter("d", date));
-        c.Parameters.Add(new SqlParameter("e", date.TimeOfDay));
-        c.Parameters.Add(new SqlParameter("g", 0));
-        c.Parameters.Add(new SqlParameter("h", 0));*/
+        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (imie, nazwisko, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) VALUES('" + name + "','" + lastname + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + 0 + "','" + 0 + "')", mySQLConnection);
         c.ExecuteNonQuery();
+
+        //zapisywanie wiadomości jako szablon
+        if (CheckBox2.Enabled == true)
+        {
+            SqlCommand d = new SqlCommand("INSERT INTO szablony (tresc, imie, nazwisko) VALUES('" + message + "','" + name + "','" + lastname + "')", mySQLConnection);
+            d.ExecuteNonQuery();
+        }
         mySQLConnection.Close();
+    }
+
+
+    [WebMethod]
+    public static void Usun_szablon()
+    {
+        System.Diagnostics.Debug.WriteLine("szablon usuniety");
     }
 
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
