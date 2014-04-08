@@ -40,7 +40,7 @@
             //$("#MainContent_TextBox1").text(brand);
             document.getElementById("MainContent_TextBox1").value = brand;
 
-            var autor = $("#MainContent_lUser").val(); 
+            var autor = $("#MainContent_lUser").Text; 
             var text = $("#MainContent_TextBox1").val();
             text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
                 .replace(/ć/g, 'c').replace(/Ć/g, 'C')
@@ -51,7 +51,7 @@
                 .replace(/ś/g, 's').replace(/Ś/g, 'S')
                 .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
                 .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
-            $("#MainContent_Label1").text("Od " + autor + ": " + text);
+            $("#MainContent_Label1").text(text);
 
 
             HideDialog();
@@ -190,7 +190,6 @@
        <asp:Button ID="Button2" runat="server" Text="Wyślij" onclick="Button2_Click" class="button-send" />
        <br />
        <br />
-       <asp:Button ID="user" runat="server" onclick="user_Click" Text="Imię i nazwisko" />
        </div> <!-- koniec lewej kolumny -->
 
     <div class="phonePic">  <!-- zdjecie telefonu, tylko dekstop -->

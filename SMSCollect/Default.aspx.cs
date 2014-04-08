@@ -33,7 +33,7 @@ public partial class _Default : System.Web.UI.Page
         name = (string)Session["NAME"];
         lastname = (string)Session["LASTNAME"];
 
-        lUser.Text = name + "" + lastname;
+        lUser.Text = name + " " + lastname;
     }
 
     protected void Button2_Click(object sender, EventArgs e)
