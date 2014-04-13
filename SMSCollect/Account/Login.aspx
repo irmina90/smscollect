@@ -4,12 +4,10 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        Logowanie
-    </h2>
-    <p>
-        Wpisz nazwę użytkownika i hasło.
-    </p>
+    <div class="accountIntro">
+    <h2>Logowanie</h2>
+    <p>Wpisz nazwę użytkownika i hasło.</p>
+    </div>
     <asp:Login ID="LoginUser" runat="server" EnableViewState="false" 
         RenderOuterTable="false" onauthenticate="LoginUser_Authenticate"  >
         <LayoutTemplate>
@@ -18,6 +16,7 @@
             </span>
             <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification" 
                  ValidationGroup="LoginUserValidationGroup"/>
+            <!-- początek accountInfo -->
             <div class="accountInfo">
                 <fieldset class="login">
                     <legend>Informacje o koncie</legend>
@@ -44,6 +43,7 @@
                     <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Zaloguj" ValidationGroup="LoginUserValidationGroup" />
                 </p>
             </div>
+            <!-- koniec accountInfo -->
         </LayoutTemplate>
     </asp:Login>
 </asp:Content>

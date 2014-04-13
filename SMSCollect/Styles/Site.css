@@ -189,54 +189,6 @@ div.menu ul li a:active
     text-decoration: none;
 }
 
-/* FORM ELEMENTS   
-----------------------------------------------------------*/
-
-fieldset
-{
-    margin: 1em 0px;
-    padding: 1em;
-    border: 1px solid #ccc;
-}
-
-fieldset p 
-{
-    margin: 2px 12px 10px 10px;
-}
-
-fieldset.login label, fieldset.register label, fieldset.changePassword label
-{
-    display: block;
-}
-
-fieldset label.inline 
-{
-    display: inline;
-}
-
-legend 
-{
-    font-size: 1.1em;
-    font-weight: 600;
-    padding: 2px 4px 8px 4px;
-}
-
-input.textEntry 
-{
-    width: 320px;
-    border: 1px solid #ccc;
-}
-
-input.passwordEntry 
-{
-    width: 320px;
-    border: 1px solid #ccc;
-}
-
-div.accountInfo
-{
-    width: 42%;
-}
 
 /* MISC  
 ----------------------------------------------------------*/
@@ -413,11 +365,14 @@ div.accountInfo
         left: 5.5em;
     }
     
-    .logo-uam 
+    .logo-uam  
     {
         float: left;
-        padding-left: 1em;
-        padding-top: 0.4em;
+        background-image: url(logo-smartfone.jpg);
+        margin-left: 1em;
+        margin-top: 0.4em;
+        height: 6em;
+        width: 5em;
     }
     
     .box-sms 
@@ -437,7 +392,57 @@ div.accountInfo
     {
         display: none;
     }
+    
+    div.accountInfo
+    {
+        width: 100%;  
+    }
+    
+    div.accountIntro 
+    {
+        padding-left: 1.2em;
+    }
+    
+    fieldset
+    {
+        margin: 1em 0px;
+        padding: 1em;
+        border: 1px solid #ccc;
+    }
 
+    fieldset p 
+    {
+        margin: 2px 12px 10px 10px;
+    }
+
+    fieldset.login label, fieldset.register label, fieldset.changePassword label
+    {
+        display: block;
+    }
+
+    fieldset label.inline 
+    {
+        display: inline;
+    }
+
+    legend 
+    {
+        font-size: 1.1em;
+        font-weight: 600;
+        padding: 2px 4px 8px 4px;
+    }
+    
+    input.textEntry 
+    {
+        width: 80%;
+        border: 1px solid #ccc;
+    }
+
+    input.passwordEntry 
+    {
+        width: 80%;
+        border: 1px solid #ccc;
+    }    
 }
 
 /* iPads (portrait and landscape) ----------- */
@@ -491,6 +496,26 @@ div.accountInfo
         margin-right: 9.4em;
         
     }
+    
+    div.accountIntro 
+    {
+        padding-left: 0;
+    }
+    
+    div.accountInfo
+    {
+        width: 80%;  
+    }
+    
+    input.textEntry 
+    {
+        width: 320px;
+    }
+
+    input.passwordEntry 
+    {
+        width: 320px;
+    }
             
 }
 
@@ -525,6 +550,11 @@ div.accountInfo
         float: left;
         clear: right;
         margin-right: 2%;
+    }
+    
+    div.accountInfo
+    {
+        width: 60%;  
     }
     
 }

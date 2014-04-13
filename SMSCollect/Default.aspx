@@ -102,7 +102,8 @@
     <br />
     <body>
     <!-- poczatek lewej kolumny -->
-    <div class="left-column">  
+    <div class="left-column"> 
+     Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label> 
     <p>Odbiorca:</p>           
     <asp:DropDownList class="list-subjects" ID="DropDownList1" runat="server" onselectedindexchanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
         <!-- 
@@ -185,8 +186,6 @@
     <asp:CheckBox ID="CheckBox2" runat="server" 
            Text="Zapisz jako szablon" />
     <br />
-       Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label>
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <asp:Button ID="Button2" runat="server" Text="Wyślij" onclick="Button2_Click" class="button-send" />
        <br />
        <br />

@@ -14,7 +14,7 @@
     <form id="Form1" runat="server">
     <div class="page">
         <div class="header">
-            <div class="logo-uam"><img src="Styles/logo-smartfone.jpg" /></div>
+            <div class="logo-uam"></div>
             <div class="loginDisplay">
     
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
