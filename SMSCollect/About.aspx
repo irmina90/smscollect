@@ -29,8 +29,7 @@
         <asp:SessionParameter Name="nazwisko" SessionField="lastname" Type="String" />
        </SelectParameters>
        </asp:SqlDataSource>
-    </p>
-            
+    </p>    
     
 </asp:Content>
 

@@ -256,23 +256,6 @@ div.menu ul li a:active
    z-index: 101;
    display: none;
 }
-.web_dialog
-{
-   display: none;
-   position: fixed;
-   width: 380px;
-   height: 300px;
-   top: 50%;
-   left: 50%;
-   margin-left: -190px;
-   margin-top: -100px;
-   background-color: #ffffff;
-   border: 2px solid #336699;
-   padding: 0px;
-   z-index: 102;
-   font-family: Verdana;
-   font-size: 10pt;
-}
 .web_dialog_title
 {
    border-bottom: solid 2px #336699;
@@ -298,6 +281,11 @@ div.menu ul li a:active
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (min-width : 20em) /* 320px */
 {
+    p 
+    {
+        padding-left: 1em;
+    }
+    
     .body 
     {
         margin: 0;
@@ -442,12 +430,34 @@ div.menu ul li a:active
     {
         width: 80%;
         border: 1px solid #ccc;
-    }    
+    }  
+    .web_dialog
+    {
+       display: none;
+       position: fixed;
+       width: 280px;
+       height: 300px;
+       top: 50%;
+       left: 50%;
+       margin-left: -142px;
+       margin-top: -150px;
+       background-color: #ffffff;
+       border: 2px solid #336699;
+       padding: 0px;
+       z-index: 102;
+       font-family: Verdana;
+       font-size: 10pt;
+    }  
 }
 
 /* iPads (portrait and landscape) ----------- */
 @media only screen and (min-width: 48em) /* 768px */
 {
+    p
+    {
+        padding-left:0;
+    }
+    
     .body
     {
         margin: 0px 20px;
@@ -462,7 +472,7 @@ div.menu ul li a:active
     
     .list-subjects
     {
-        width: 40em;
+        width: 30em;
     }
     
     .main
@@ -515,6 +525,13 @@ div.menu ul li a:active
     input.passwordEntry 
     {
         width: 320px;
+    }
+    .web_dialog
+    {
+       width: 380px;
+       height: 300px;
+       margin-left: -190px;
+       margin-top: -100px;
     }
             
 }
