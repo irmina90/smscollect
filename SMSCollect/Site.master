@@ -33,7 +33,7 @@
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Wyślij SMS"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="Historia"/>
+                        <asp:MenuItem NavigateUrl="~/Historia.aspx" Text="Historia"/>
                     </Items>
                 </asp:Menu>
             </div>

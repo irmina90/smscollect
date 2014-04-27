@@ -448,6 +448,59 @@ div.menu ul li a:active
        font-family: Verdana;
        font-size: 10pt;
     }  
+    
+    .table
+        {
+            border-collapse: collapse;
+            width:100%;
+        }
+    .table tr th
+    {
+        background-color: #3a4f63;
+        color: #FFFFFF;
+        padding: 10px 5px 10px 5px;
+        border: 1px solid #cccccc;
+        font-size: 12px;
+        font-weight: normal;
+        text-transform:capitalize;
+    }
+    .table a 
+    {
+        color: #FFFFFF;
+    }
+    .table tr th:nth-child(4),
+    .table tr th:nth-child(5),
+    .table tr th:nth-child(6)
+    {
+        display: none;
+    }
+    .table tr:nth-child(2n+2)
+    {
+        background-color: #f3f4f5;
+    }
+
+    .table tr:nth-child(2n+1) td
+    {
+        background-color: #d6dadf;
+        color: #454545;
+    }
+    .table tr td
+    {
+        padding: 5px 10px 5px 10px;
+        color: #454545;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        border: 1px solid #cccccc;
+        vertical-align: middle;
+    }
+    .table tr td:first-child
+    {
+        text-align: center;
+    }
+    .extension-col 
+    {
+        display: none;
+    }
 }
 
 /* iPads (portrait and landscape) ----------- */
@@ -532,6 +585,13 @@ div.menu ul li a:active
        height: 300px;
        margin-left: -190px;
        margin-top: -100px;
+    }
+    .table tr th:nth-child(4),
+    .table tr th:nth-child(5),
+    .table tr th:nth-child(6),
+    .extension-col
+    {
+        display: table-cell;
     }
             
 }
