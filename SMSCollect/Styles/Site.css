@@ -326,8 +326,8 @@ div.menu ul li a:active
     div.menu
     {
         height: 1.5em;
-        -webkit-top: -1.4em;
-        top: -1.2em
+        top: -1.4em;
+        
     }
     
     div.hideSkiplink
@@ -436,7 +436,7 @@ div.menu ul li a:active
        display: none;
        position: fixed;
        width: 280px;
-       height: 300px;
+       min-height: 300px;
        top: 50%;
        left: 50%;
        margin-left: -142px;
@@ -582,7 +582,7 @@ div.menu ul li a:active
     .web_dialog
     {
        width: 380px;
-       height: 300px;
+       min-height: 300px;
        margin-left: -190px;
        margin-top: -100px;
     }

@@ -34,6 +34,13 @@ public partial class _Default : System.Web.UI.Page
         lastname = (string)Session["LASTNAME"];
 
         lUser.Text = name + " " + lastname;
+
+        // poczatkowa strona z logowaniem
+	    // Get response.
+	    var response = base.Response;
+	    // Redirect temporarily.
+	    // ... Don't throw an HttpException to terminate.
+        response.Redirect("/SMSCollect/Account/Login.aspx", false);
     }
 
     protected void Button2_Click(object sender, EventArgs e)
