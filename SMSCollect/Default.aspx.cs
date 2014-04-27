@@ -25,9 +25,9 @@ public partial class _Default : System.Web.UI.Page
         name = (string)Session["NAME"];
         lastname = (string)Session["LASTNAME"];
 
-        
-        //name = "Rafał";
-        //lastname = "Jaworski";
+
+        name = "Rafał";
+        lastname = "Jaworski";
 
         //wczytanie grup zajeciowych z bazy i umieszczenie ich w dropdownlist
         setListGroup(name, lastname);
@@ -38,7 +38,7 @@ public partial class _Default : System.Web.UI.Page
 
         parseJson();
 
-        
+
         ((Label)LoginView1.FindControl("lUser")).Text = name + " " + lastname;
     }
 
@@ -49,23 +49,26 @@ public partial class _Default : System.Web.UI.Page
         string[] numbers = (string[])getNumbersByGroupId(groupId, name, lastname).ToArray(typeof(string));
 
         String message = ((TextBox)LoginView1.FindControl("TextBox1")).Text;
-        sendSMS(numbers, message);
+        ArrayList ids = sendSMS(numbers, message);
 
         //dane z wysyłanej wiadomości
-      
-       // String login = LoginName1.FormatString;
+
+        // String login = LoginName1.FormatString;
         String login = name + "" + lastname;
         String odbiorca = ((DropDownList)LoginView1.FindControl("DropDownList1")).SelectedItem.Text;
         String date = DateTime.Today.ToString("yyyy-MM-dd");
         String time = DateTime.Now.ToString("HH:mm:ss");
+
+        int ilosc_wyslanych = numbers.Count();
 
         SqlConnection mySQLConnection = new SqlConnection();
         mySQLConnection.ConnectionString = connStr;
         mySQLConnection.Open();
 
         //dodawanie do bazy wiadomości
-        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (imie, nazwisko, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) VALUES('" + name + "','" + lastname + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + 0 + "','" + 0 + "')", mySQLConnection);
-        c.ExecuteNonQuery();
+        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (imie, nazwisko, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) OUTPUT INSERTED.Id_tresc VALUES('" + name + "','" + lastname + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + ilosc_wyslanych + "','" + 0 + "')", mySQLConnection);
+        //c.ExecuteNonQuery();
+        int msgId = (int)c.ExecuteScalar();
 
         //zapisywanie wiadomości jako szablon
         if (((CheckBox)LoginView1.FindControl("CheckBox2")).Checked)
@@ -73,6 +76,14 @@ public partial class _Default : System.Web.UI.Page
             SqlCommand d = new SqlCommand("INSERT INTO szablony (tresc, imie, nazwisko) VALUES('" + message + "','" + name + "','" + lastname + "')", mySQLConnection);
             d.ExecuteNonQuery();
         }
+
+        foreach (String id in ids)
+        {
+            String query = "INSERT INTO statusy (id_mgs,sms_status,sms_index,sms_to) VALUES('" + msgId + "','" + 0 + "','" + id + "','" + 0 + "')";
+            SqlCommand d = new SqlCommand(query, mySQLConnection);
+            d.ExecuteNonQuery();
+        }
+
         mySQLConnection.Close();
     }
 
@@ -90,81 +101,92 @@ public partial class _Default : System.Web.UI.Page
 
     protected void wybierz_szablon(object sender, EventArgs e)
     {
-   
+
     }
     public SMSApi.Api.Client client()
     {
-            SMSApi.Api.Client client = new SMSApi.Api.Client("magdalenka407@gmail.com");
-            client.SetPasswordRAW("szpilka3");
+        SMSApi.Api.Client client = new SMSApi.Api.Client("gmagdaa@op.pl");
+        client.SetPasswordRAW("szpilka3");
 
-            return client;
-     }
+        return client;
+    }
 
 
-    public void sendSMS(string[] phoneNumbers, String Message)
+    public ArrayList sendSMS(string[] phoneNumbers, String Message)
     {
         try
-            {
-                //var smsApiClient = new SMSApi.Api.SMSFactory(client());    
-                var result =
-                        smsApiClient.ActionSend()
-                            .SetText(Message)
-                            .SetTo(phoneNumbers)
-                            .SetDateSent(DateTime.Now)
-                            .Execute();
-                System.Diagnostics.Debug.WriteLine("Send: " + result.Count);
+        {
 
-                System.Diagnostics.Debug.WriteLine("Get:");
+            ArrayList ids = new ArrayList();
+            //var smsApiClient = new SMSApi.Api.SMSFactory(client());    
+            var result =
+                    smsApiClient.ActionSend()
+                        .SetText(Message)
+                        .SetTo(phoneNumbers)
+                        .SetDateSent(DateTime.Now)
+                        .Execute();
+            System.Diagnostics.Debug.WriteLine("Send: " + result.Count);
 
-                //Thread thread = new Thread(new ParameterizedThreadStart(waitForResponse));
-                //thread.Start(result);
+            System.Diagnostics.Debug.WriteLine("Get:");
 
-               
-            }
-            catch (SMSApi.Api.ActionException eg)
+            //Thread thread = new Thread(new ParameterizedThreadStart(waitForResponse));
+            //thread.Start(result);
+
+            foreach (var status in result.List)
             {
-                /**
-                 * Błędy związane z akcją (z wyłączeniem błędów 101,102,103,105,110,1000,1001 i 8,666,999,201)
-                 * http://www.smsapi.pl/sms-api/kody-bledow
-                 */
-                System.Diagnostics.Debug.WriteLine(eg.Message);
+                System.Console.WriteLine("ID: " + status.ID);
+                ids.Add(status.ID);
             }
-            catch (SMSApi.Api.ClientException eg)
-            {
-                /**
-                 * 101 Niepoprawne lub brak danych autoryzacji.
-                 * 102 Nieprawidłowy login lub hasło
-                 * 103 Brak punków dla tego użytkownika
-                 * 105 Błędny adres IP
-                 * 110 Usługa nie jest dostępna na danym koncie
-                 * 1000 Akcja dostępna tylko dla użytkownika głównego
-                 * 1001 Nieprawidłowa akcja
-                 */
-                System.Diagnostics.Debug.WriteLine(eg.Message);
-            }
-            catch (SMSApi.Api.HostException eg)
-            {
-                /* błąd po stronie servera lub problem z parsowaniem danych
-                 * 
-                 * 8 - Błąd w odwołaniu
-                 * 666 - Wewnętrzny błąd systemu
-                 * 999 - Wewnętrzny błąd systemu
-                 * 201 - Wewnętrzny błąd systemu
-                 * SMSApi.Api.HostException.E_JSON_DECODE - problem z parsowaniem danych
-                 */
-                System.Diagnostics.Debug.WriteLine(eg.Message);
-            }
-            catch (SMSApi.Api.ProxyException eg)
-            {
-                // błąd w komunikacji pomiedzy klientem a serverem
-                System.Diagnostics.Debug.WriteLine(eg.Message);
-            }       
+
+            return ids;
+
+
+        }
+        catch (SMSApi.Api.ActionException eg)
+        {
+            /**
+             * Błędy związane z akcją (z wyłączeniem błędów 101,102,103,105,110,1000,1001 i 8,666,999,201)
+             * http://www.smsapi.pl/sms-api/kody-bledow
+             */
+            System.Diagnostics.Debug.WriteLine(eg.Message);
+        }
+        catch (SMSApi.Api.ClientException eg)
+        {
+            /**
+             * 101 Niepoprawne lub brak danych autoryzacji.
+             * 102 Nieprawidłowy login lub hasło
+             * 103 Brak punków dla tego użytkownika
+             * 105 Błędny adres IP
+             * 110 Usługa nie jest dostępna na danym koncie
+             * 1000 Akcja dostępna tylko dla użytkownika głównego
+             * 1001 Nieprawidłowa akcja
+             */
+            System.Diagnostics.Debug.WriteLine(eg.Message);
+        }
+        catch (SMSApi.Api.HostException eg)
+        {
+            /* błąd po stronie servera lub problem z parsowaniem danych
+             * 
+             * 8 - Błąd w odwołaniu
+             * 666 - Wewnętrzny błąd systemu
+             * 999 - Wewnętrzny błąd systemu
+             * 201 - Wewnętrzny błąd systemu
+             * SMSApi.Api.HostException.E_JSON_DECODE - problem z parsowaniem danych
+             */
+            System.Diagnostics.Debug.WriteLine(eg.Message);
+        }
+        catch (SMSApi.Api.ProxyException eg)
+        {
+            // błąd w komunikacji pomiedzy klientem a serverem
+            System.Diagnostics.Debug.WriteLine(eg.Message);
+        }
+        return null;
     }
 
     public ArrayList getNumbersByGroupId(int id, String name, String surname)
     {
         ArrayList numbers = new ArrayList();
-        
+
         SqlConnection mySQLConnection = new SqlConnection();
         mySQLConnection.ConnectionString = connStr;
         mySQLConnection.Open();
@@ -225,7 +247,7 @@ public partial class _Default : System.Web.UI.Page
         //czekaj 30 sekund
         System.Threading.Thread.Sleep(30000);
         SMSApi.Api.Response.Status result = (SMSApi.Api.Response.Status)obj;
-        
+
         string[] ids = new string[result.Count];
         for (int i = 0, l = 0; i < result.List.Count; i++)
         {
@@ -246,7 +268,7 @@ public partial class _Default : System.Web.UI.Page
             System.Diagnostics.Debug.WriteLine("ID: " + status.ID + " NUmber: " + status.Number + " Points:" +
                 status.Points + " Status:" + status.Status + " IDx: " + status.IDx);
         }
-       
+
     }
 
     public void setListGroup(String name, String surname)
@@ -347,17 +369,17 @@ public partial class _Default : System.Web.UI.Page
 
     protected void user_Click(object sender, EventArgs e)
     {
-  
+
     }
 
     public void parseJson()
     {
         String data = "{\"course_id\": \"06-DZJNUI0\", \"group_number\": 1,\"course_name\": { \"en\": \"Application of Information Technology in Natural Language Processing\", \"pl\": \"Zastosowania informatyki w przetwarzaniu języka naturalnego\" }, \"class_type\": { \"en\": \"lecture\", \"pl\": \"Wykład\"}}";
         JObject o = JObject.Parse(data);
-        System.Diagnostics.Debug.WriteLine("id: "+o["course_id"]);
+        System.Diagnostics.Debug.WriteLine("id: " + o["course_id"]);
         System.Diagnostics.Debug.WriteLine("nazwa: " + o["course_name"]["pl"]);
         System.Diagnostics.Debug.WriteLine("typ zajęć: " + o["class_type"]["pl"]);
     }
 }
-    
+
 
