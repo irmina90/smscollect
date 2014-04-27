@@ -13,7 +13,7 @@
             </p>
         </AnonymousTemplate>
         <LoggedInTemplate>  
-    <p>Twoja historia wys³¹nych wiadomoœci SMS<asp:GridView ID="GridView1" CssClass="table" runat="server" 
+    <p>Twoja historia wys³anych wiadomoœci SMS<asp:GridView ID="GridView1" CssClass="table" runat="server" 
            AutoGenerateColumns="False" DataSourceID="SqlDataSource1" 
            AllowPaging="True" AllowSorting="True">
        <Columns>

@@ -87,7 +87,6 @@ first child of the left and right table columns */
 .page
 {
     background-color: #fff;
-    border: 1px solid #496077;
 }
 
 .header
@@ -115,7 +114,6 @@ first child of the left and right table columns */
     float: left; 
     clear: right; 
     margin-right: 2%; 
-    margin-left: 2em;
 }
 
 .leftCol
@@ -232,47 +230,6 @@ div.menu ul li a:active
     font-weight: bold;
 }
 
-.submitButton
-{
-    text-align: right;
-    padding-right: 10px;
-}
-
-.web_dialog_overlay
-{
-   position: fixed;
-   top: 0;
-   right: 0;
-   bottom: 0;
-   left: 0;
-   height: 100%;
-   width: 100%;
-   margin: 0;
-   padding: 0;
-   background: #000000;
-   opacity: .15;
-   filter: alpha(opacity=15);
-   -moz-opacity: .15;
-   z-index: 101;
-   display: none;
-}
-.web_dialog_title
-{
-   border-bottom: solid 2px #336699;
-   background-color: #336699;
-   padding: 4px;
-   color: White;
-   font-weight:bold;
-}
-.web_dialog_title a
-{
-   color: White;
-   text-decoration: none;
-}
-.align_right
-{
-   text-align: right;
-}
 
 
 /* RESPONSIVE DESIGN
@@ -294,13 +251,18 @@ div.menu ul li a:active
     
     .page
     {
-        width: 26em;
-        margin: 0px auto 0px auto;
+        width: 23em;
+        border: 0.5px solid #21305a;
+        margin: 50px auto 0px auto;
+        -moz-box-shadow:    inset 0 0 10px #21305a;
+        -webkit-box-shadow: inset 0 0 10px #21305a;
+        box-shadow:         inset 0 0 10px #21305a;
     }
     
     .left-column 
     {
-        width: 80%;
+        width: 100%;
+        margin-left: 1em;
     }
     
     .main
@@ -321,6 +283,10 @@ div.menu ul li a:active
     .header 
     {
         background-color: White;
+        -webkit-border-top-left-radius: 10px;
+        -webkit-border-top-right-radius: 10px;
+        -moz-border-radius-topleft: 10px;
+        -moz-border-radius-topright: 10px;
     }
      
     div.menu
@@ -374,6 +340,7 @@ div.menu ul li a:active
     {
         float:right;
         width: 77px;
+        margin-right: 2.4em;
     }
     
     div.phonePic
@@ -449,6 +416,48 @@ div.menu ul li a:active
        font-size: 10pt;
     }  
     
+        .submitButton
+    {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .web_dialog_overlay
+    {
+       position: fixed;
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left: 0;
+       height: 100%;
+       width: 100%;
+       margin: 0;
+       padding: 0;
+       background: #000000;
+       opacity: .15;
+       filter: alpha(opacity=15);
+       -moz-opacity: .15;
+       z-index: 101;
+       display: none;
+    }
+    .web_dialog_title
+    {
+       border-bottom: solid 2px #336699;
+       background-color: #336699;
+       padding: 4px;
+       color: White;
+       font-weight:bold;
+    }
+    .web_dialog_title a
+    {
+       color: White;
+       text-decoration: none;
+    }
+    .align_right
+    {
+       text-align: right;
+    }
+    
     .table
         {
             border-collapse: collapse;
@@ -519,8 +528,8 @@ div.menu ul li a:active
     
     .page
     {
-        width: 55.5em;
-        margin: 20px auto 0px auto;
+        width: 55.6em;
+        margin: 57px auto 0px auto;
     }
     
     .list-subjects
@@ -556,7 +565,7 @@ div.menu ul li a:active
     
     .button-send
     {
-        margin-right: 9.4em;
+        margin-right: 21em;
         
     }
     
@@ -601,12 +610,13 @@ div.menu ul li a:active
 {
     .page
     {
-        width: 78.4em;
+        width: 78.2em;
     }
     
     .left-column
     {
         width: 54%;
+        margin-left: 2em;
     }
     
     .list-subjects
@@ -632,6 +642,12 @@ div.menu ul li a:active
     div.accountInfo
     {
         width: 60%;  
+    }
+    
+    .button-send
+    {
+        margin-right: 9.5em;
+        
     }
     
 }
