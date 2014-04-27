@@ -8,7 +8,7 @@
    </p>
        <asp:LoginView ID="LoginView1" runat="server">
        <AnonymousTemplate>
-           <br> <p>
+            <p>
                 Zawartoœæ przeznaczona jedynie dla zalogowanych u¿ytkowników. 
             </p>
         </AnonymousTemplate>

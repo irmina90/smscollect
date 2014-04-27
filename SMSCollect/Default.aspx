@@ -104,7 +104,7 @@
     <asp:LoginView ID="LoginView1" runat="server">
      <AnonymousTemplate>
             <p>
-                Zawartość przeznaczona jedynie dla zalogowanych użytkowników. 
+                Zawartośc przeznaczona jedynie dla zalogowanych użytkowników. 
             </p>
         </AnonymousTemplate>
         <LoggedInTemplate>
