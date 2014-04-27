@@ -4,7 +4,16 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-   <p>Twoja historia<asp:GridView ID="GridView1" CssClass="table" runat="server" 
+   <p>
+   </p>
+       <asp:LoginView ID="LoginView1" runat="server">
+        <AnonymousTemplate>
+            <p>
+                Zawartoœæ przeznaczona jedynie dla zalogowanych u¿ytkowników. 
+            </p>
+        </AnonymousTemplate>
+        <LoggedInTemplate>  
+    <p>Twoja historia wys³¹nych wiadomoœci SMS<asp:GridView ID="GridView1" CssClass="table" runat="server" 
            AutoGenerateColumns="False" DataSourceID="SqlDataSource1" 
            AllowPaging="True" AllowSorting="True">
        <Columns>
@@ -25,7 +34,8 @@
         <asp:SessionParameter Name="nazwisko" SessionField="lastname" Type="String" />
        </SelectParameters>
        </asp:SqlDataSource>
-    </p>    
-    
+    </p>   
+    </LoggedInTemplate> 
+    </asp:LoginView>
 </asp:Content>
 

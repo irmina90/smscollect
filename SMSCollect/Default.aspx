@@ -101,6 +101,13 @@
                 </asp:ScriptManager>
     <br />
     <body>
+    <asp:LoginView ID="LoginView1" runat="server">
+     <AnonymousTemplate>
+            <p>
+                Zawartośc przeznaczona jedynie dla zalogowanych użytkowników. 
+            </p>
+        </AnonymousTemplate>
+        <LoggedInTemplate>
     <!-- poczatek lewej kolumny -->
     <div class="left-column"> 
      Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label> 
@@ -194,6 +201,8 @@
     <div class="phonePic">  <!-- zdjecie telefonu, tylko dekstop -->
         <asp:Label ID="Label1" runat="server" Height="600px" style=" margin-left: 15%; margin-right: 15%; margin-top: 45%;" ></asp:Label>
     </div>
+    </LoggedInTemplate>
+    </asp:LoginView> 
     </body>
 
 </asp:Content>

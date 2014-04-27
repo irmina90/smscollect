@@ -21,6 +21,7 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
         //wczytanie grup zajeciowych z bazy i umieszczenie ich w dropdownlist
         setListGroup("dziekanat");
 
@@ -33,30 +34,23 @@ public partial class _Default : System.Web.UI.Page
         name = (string)Session["NAME"];
         lastname = (string)Session["LASTNAME"];
 
-        lUser.Text = name + " " + lastname;
-
-        // poczatkowa strona z logowaniem
-	    // Get response.
-	    var response = base.Response;
-	    // Redirect temporarily.
-	    // ... Don't throw an HttpException to terminate.
-        response.Redirect("/SMSCollect/Account/Login.aspx", false);
+       // ((Label)LoginView1.FindControl("lUser")).Text = name + " " + lastname;
     }
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        int groupId = Convert.ToInt32(DropDownList1.SelectedValue);
+        int groupId = Convert.ToInt32(((DropDownList)LoginView1.FindControl("DropDownList1")).SelectedValue);
         
         string[] numbers = (string[])getNumbersByGroupId(groupId,"dziekanat").ToArray(typeof(string));
 
-        String message = TextBox1.Text;
+        String message = ((TextBox)LoginView1.FindControl("TextBox1")).Text;
         sendSMS(numbers, message);
 
         //dane z wysyłanej wiadomości
       
        // String login = LoginName1.FormatString;
         String login = name + "" + lastname;
-        String odbiorca = DropDownList1.SelectedItem.Text;
+        String odbiorca = ((DropDownList)LoginView1.FindControl("DropDownList1")).SelectedItem.Text;
         String date = DateTime.Today.ToString("yyyy-MM-dd");
         String time = DateTime.Now.ToString("HH:mm:ss");
 
@@ -69,7 +63,7 @@ public partial class _Default : System.Web.UI.Page
         c.ExecuteNonQuery();
 
         //zapisywanie wiadomości jako szablon
-        if (CheckBox2.Enabled == true)
+        if (((CheckBox)LoginView1.FindControl("CheckBox2")).Checked)
         {
             SqlCommand d = new SqlCommand("INSERT INTO szablony (tresc, imie, nazwisko) VALUES('" + message + "','" + name + "','" + lastname + "')", mySQLConnection);
             d.ExecuteNonQuery();
@@ -242,7 +236,9 @@ public partial class _Default : System.Web.UI.Page
 
     public void setListGroup(String login)
     {
-        if (DropDownList1.Items.Count <= 0)
+        DropDownList lista = ((DropDownList)LoginView1.FindControl("DropDownList1"));
+
+        if (lista != null && lista.Items.Count <= 0)
         {
             Hashtable weekDays = new Hashtable();
             weekDays[1] = "Poniedziałek";
@@ -256,13 +252,13 @@ public partial class _Default : System.Web.UI.Page
             foreach (KeyValuePair<int, ArrayList> entry in listGroupByDay)
             {
                 int day = Convert.ToInt32(entry.Key.ToString());
-                DropDownList1.Items.Add(new ListItem(weekDays[day].ToString(), "-" + entry.Key.ToString()));
+                ((DropDownList)LoginView1.FindControl("DropDownList1")).Items.Add(new ListItem(weekDays[day].ToString(), "-" + entry.Key.ToString()));
                 ArrayList array = (ArrayList)entry.Value;
                 foreach (SortedDictionary<int, string> item in array)
                 {
                     foreach (KeyValuePair<int, string> el in item)
                     {
-                        DropDownList1.Items.Add(new ListItem(el.Value.ToString(), el.Key.ToString()));
+                        ((DropDownList)LoginView1.FindControl("DropDownList1")).Items.Add(new ListItem(el.Value.ToString(), el.Key.ToString()));
                     }
                 }
             }
