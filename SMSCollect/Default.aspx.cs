@@ -22,8 +22,15 @@ public partial class _Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
+        name = (string)Session["NAME"];
+        lastname = (string)Session["LASTNAME"];
+
+        
+        //name = "Rafał";
+        //lastname = "Jaworski";
+
         //wczytanie grup zajeciowych z bazy i umieszczenie ich w dropdownlist
-        setListGroup("dziekanat");
+        setListGroup(name, lastname);
 
         smsApiClient = new SMSApi.Api.SMSFactory(client());
         System.Diagnostics.Debug.WriteLine("wysyłanie");
@@ -31,17 +38,15 @@ public partial class _Default : System.Web.UI.Page
 
         parseJson();
 
-        name = (string)Session["NAME"];
-        lastname = (string)Session["LASTNAME"];
-
-       // ((Label)LoginView1.FindControl("lUser")).Text = name + " " + lastname;
+        
+        ((Label)LoginView1.FindControl("lUser")).Text = name + " " + lastname;
     }
 
     protected void Button2_Click(object sender, EventArgs e)
     {
         int groupId = Convert.ToInt32(((DropDownList)LoginView1.FindControl("DropDownList1")).SelectedValue);
-        
-        string[] numbers = (string[])getNumbersByGroupId(groupId,"dziekanat").ToArray(typeof(string));
+
+        string[] numbers = (string[])getNumbersByGroupId(groupId, name, lastname).ToArray(typeof(string));
 
         String message = ((TextBox)LoginView1.FindControl("TextBox1")).Text;
         sendSMS(numbers, message);
@@ -89,8 +94,8 @@ public partial class _Default : System.Web.UI.Page
     }
     public SMSApi.Api.Client client()
     {
-            SMSApi.Api.Client client = new SMSApi.Api.Client("mklobukowska@gmail.com");
-            client.SetPasswordRAW("szpileczka3");
+            SMSApi.Api.Client client = new SMSApi.Api.Client("magdalenka407@gmail.com");
+            client.SetPasswordRAW("szpilka3");
 
             return client;
      }
@@ -111,8 +116,8 @@ public partial class _Default : System.Web.UI.Page
 
                 System.Diagnostics.Debug.WriteLine("Get:");
 
-                Thread thread = new Thread(new ParameterizedThreadStart(waitForResponse));
-                thread.Start(result);
+                //Thread thread = new Thread(new ParameterizedThreadStart(waitForResponse));
+                //thread.Start(result);
 
                
             }
@@ -156,7 +161,7 @@ public partial class _Default : System.Web.UI.Page
             }       
     }
 
-    public ArrayList getNumbersByGroupId(int id, String login)
+    public ArrayList getNumbersByGroupId(int id, String name, String surname)
     {
         ArrayList numbers = new ArrayList();
         
@@ -165,6 +170,7 @@ public partial class _Default : System.Web.UI.Page
         mySQLConnection.Open();
 
         String query;
+        /*
         query = "SELECT telefon,aktywny_numer FROM " +
                 "Grupa_ INNER JOIN Grupy_Studenci " +
                 "ON Grupa_.ID=Grupy_Studenci.grupa INNER JOIN Student ON Student.ID = Grupy_Studenci.student " +
@@ -184,13 +190,16 @@ public partial class _Default : System.Web.UI.Page
                 query = query + "WHERE dzien = " + -id;
             }
         }
-
+        */
+        query = "select telefon from USOS_przedmioty inner join USOS_telefony " +
+                "on USOS_przedmioty.os_id = USOS_telefony.id WHERE USOS_przedmioty.zaj_cyk_id = " + id;
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
         cmd.ExecuteNonQuery();
 
         SqlDataAdapter da = new SqlDataAdapter(cmd);
         DataTable dt = new DataTable();
         da.Fill(dt);
+        /*
         for (int i = 0; i < dt.Rows.Count; i++)
         {
             String number = dt.Rows[i]["telefon"].ToString();
@@ -200,6 +209,12 @@ public partial class _Default : System.Web.UI.Page
                 System.Diagnostics.Debug.WriteLine(number);
                 numbers.Add(number);
             }
+        }
+         * */
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            String number = dt.Rows[i]["telefon"].ToString();
+            numbers.Add(number);
         }
         mySQLConnection.Close();
         return numbers;
@@ -234,7 +249,7 @@ public partial class _Default : System.Web.UI.Page
        
     }
 
-    public void setListGroup(String login)
+    public void setListGroup(String name, String surname)
     {
         DropDownList lista = ((DropDownList)LoginView1.FindControl("DropDownList1"));
 
@@ -247,12 +262,13 @@ public partial class _Default : System.Web.UI.Page
             weekDays[4] = "Czwartek";
             weekDays[5] = "Piątek";
 
-            SortedDictionary<int, ArrayList> listGroupByDay = getListGroup(login);
+            SortedDictionary<int, ArrayList> listGroupByDay = getListGroup(name, surname);
 
             foreach (KeyValuePair<int, ArrayList> entry in listGroupByDay)
             {
                 int day = Convert.ToInt32(entry.Key.ToString());
-                ((DropDownList)LoginView1.FindControl("DropDownList1")).Items.Add(new ListItem(weekDays[day].ToString(), "-" + entry.Key.ToString()));
+                //dodawanie dnia tygodnia do listy
+                //((DropDownList)LoginView1.FindControl("DropDownList1")).Items.Add(new ListItem(weekDays[day].ToString(), "-" + entry.Key.ToString()));
                 ArrayList array = (ArrayList)entry.Value;
                 foreach (SortedDictionary<int, string> item in array)
                 {
@@ -265,20 +281,19 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
-    public SortedDictionary<int, ArrayList> getListGroup(String login)
+    public SortedDictionary<int, ArrayList> getListGroup(String name, String surname)
     {
         SortedDictionary<int, ArrayList> listGroupByDay = new SortedDictionary<int, ArrayList>();
 
         SqlConnection mySQLConnection = new SqlConnection();
         mySQLConnection.ConnectionString = connStr;
         mySQLConnection.Open();
-        String query = "SELECT Grupa_.ID, kod, pelna_nazwa, grupa, godzina, dzien from " +
-        "Pracownik INNER JOIN Grupa_ ON Pracownik.ID = Grupa_.prowadzacy";
-        if (login != "dziekanat")
+        String query = "SELECT zaj_cyk_id, tzaj_kod, kod, nazwa, opis from USOS_pracownik ";
+        if (name != "dziekanat")
         {
-            query = query + " WHERE Pracownik.login = \'" + login + "\'";
+            query = query + "WHERE USOS_pracownik.imie = \'" + name + "\' AND USOS_pracownik.nazwisko = \'" + surname + "\'";
         }
-        query = query + " ORDER BY dzien";
+        //query = query + " ORDER BY dzien";
 
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
         cmd.ExecuteNonQuery();
@@ -289,24 +304,38 @@ public partial class _Default : System.Web.UI.Page
         for (int i = 0; i < dt.Rows.Count; i++)
         {
             SortedDictionary<int, String> groupItem = new SortedDictionary<int, String>();
-            
+            /*
             int id = Convert.ToInt32(dt.Rows[i]["ID"].ToString());
             String code = dt.Rows[i]["kod"].ToString();
-            String name = dt.Rows[i]["pelna_nazwa"].ToString();
+            String course_name = dt.Rows[i]["pelna_nazwa"].ToString();
             String group = dt.Rows[i]["grupa"].ToString();
             String time = dt.Rows[i]["godzina"].ToString();
             int day = Convert.ToInt32(dt.Rows[i]["dzien"].ToString());
-            String listString = code + " - " + name + " - " + group + " - " + time;
+            String listString = code + " - " + course_name + " - " + group + " - " + time;*/
+
+            int id = Convert.ToInt32(dt.Rows[i]["zaj_cyk_id"].ToString());
+            String code = dt.Rows[i]["kod"].ToString();
+            code = code.Substring(3);
+            String course_name = dt.Rows[i]["nazwa"].ToString();
+            String course_type = dt.Rows[i]["tzaj_kod"].ToString();
+            String group = dt.Rows[i]["opis"].ToString();
+
+            String listString = code + " - " + course_name + " - " + course_type + " - " + group;
+
             groupItem.Add(id, listString);
-            if(!listGroupByDay.ContainsKey(day))
+            //zamiast 1 powinien być id dzień
+            int day = 1;
+
+            if (!listGroupByDay.ContainsKey(day))
             {
                 ArrayList array = new ArrayList();
                 array.Add(groupItem);
-                listGroupByDay.Add(day,array);
+                listGroupByDay.Add(day, array);
             }
             else
             {
-                ArrayList array = (ArrayList) listGroupByDay[day];
+
+                ArrayList array = (ArrayList)listGroupByDay[day];
                 array.Add(groupItem);
             }
         }
