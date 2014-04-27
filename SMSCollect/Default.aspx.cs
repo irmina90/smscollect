@@ -26,8 +26,8 @@ public partial class _Default : System.Web.UI.Page
         lastname = (string)Session["LASTNAME"];
 
 
-        name = "Rafał";
-        lastname = "Jaworski";
+        //name = "Rafał";
+        //lastname = "Jaworski";
 
         //wczytanie grup zajeciowych z bazy i umieszczenie ich w dropdownlist
         setListGroup(name, lastname);
@@ -39,7 +39,7 @@ public partial class _Default : System.Web.UI.Page
         parseJson();
 
 
-        ((Label)LoginView1.FindControl("lUser")).Text = name + " " + lastname;
+        //((Label)LoginView1.FindControl("lUser")).Text = name + " " + lastname;
     }
 
     protected void Button2_Click(object sender, EventArgs e)

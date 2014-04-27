@@ -103,14 +103,15 @@
     <body>
     <asp:LoginView ID="LoginView1" runat="server">
      <AnonymousTemplate>
-            <p>
-                Zawartośc przeznaczona jedynie dla zalogowanych użytkowników. 
-            </p>
+            <div>
+                <h3><strong>SMS Collect</strong></h3>
+                <p>System SMS-owej komunikacji Wydział – Studenci. Umożliwia on wysyłanie wiadomości SMS przez pracowników Wydziału Matematyki i Informatyki</br> do przypisanych grup studentów.<div>
+            </div>
         </AnonymousTemplate>
         <LoggedInTemplate>
     <!-- poczatek lewej kolumny -->
     <div class="left-column"> 
-     Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label> 
+     <!-- Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label> -->
     <p>Odbiorca:</p>           
     <asp:DropDownList class="list-subjects" ID="DropDownList1" runat="server" onselectedindexchanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
         <!-- 
@@ -176,7 +177,7 @@
       <tr>
          <td colspan="2" style="text-align: center;">
             <input id="btnSubmit" type="button" value="Wybierz" />
-            <input id="Button1" type="button" value="Usuń" />
+            
          </td>
       </tr>
    </table>
