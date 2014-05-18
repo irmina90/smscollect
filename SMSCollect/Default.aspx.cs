@@ -58,29 +58,67 @@ public partial class _Default : System.Web.UI.Page
         String odbiorca = ((DropDownList)LoginView1.FindControl("DropDownList1")).SelectedItem.Text;
         String date = DateTime.Today.ToString("yyyy-MM-dd");
         String time = DateTime.Now.ToString("HH:mm:ss");
-
         int ilosc_wyslanych = numbers.Count();
+        int ilosc_dostarczonych = 0;
 
         SqlConnection mySQLConnection = new SqlConnection();
         mySQLConnection.ConnectionString = connStr;
         mySQLConnection.Open();
 
         //dodawanie do bazy wiadomości
-        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (imie, nazwisko, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) OUTPUT INSERTED.Id_tresc VALUES('" + name + "','" + lastname + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + ilosc_wyslanych + "','" + 0 + "')", mySQLConnection);
+        //SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (imie, nazwisko, odbiorca, tresc, data, godzina, ilosc_dostarczonych, ilosc_wyslanych) OUTPUT INSERTED.Id_tresc VALUES('" + name + "','" + lastname + "','" + odbiorca + "','" + message + "','" + date + "','" + time + "','" + ilosc_wyslanych + "','" + 0 + "')", mySQLConnection);
+        SqlCommand c = new SqlCommand("INSERT INTO tresc_sms (@imie, @nazwisko, @odbiorca, @tresc, @data, @godzina, @ilosc_dostarczonych, @ilosc_wyslanych) OUTPUT INSERTED.Id_tresc", mySQLConnection);
         //c.ExecuteNonQuery();
+
+        /*c.Parameters.Add("@imie");
+        c.Parameters["@imie"].Value =name;
+        c.Parameters.Add("@nazwisko");
+        c.Parameters["@nazwisko"].Value = lastname;
+        c.Parameters.Add("@odbiorca");
+        c.Parameters["@odbiorca"].Value = odbiorca;
+        c.Parameters.Add("@tresc");
+        c.Parameters["@tresc"].Value = message;
+        c.Parameters.Add("@data");
+        c.Parameters["@data"].Value = date;
+        c.Parameters.Add("@godzina");
+        c.Parameters["@godzina"].Value = time;
+        c.Parameters.Add("@ilosc_dostarczonych");
+        c.Parameters["@ilosc_dostarczonych"].Value = ilosc_dostarczonych;
+        c.Parameters.Add("@iosc_wyslanych");
+        c.Parameters["@ilosc_wyslanych"].Value = ilosc_wyslanych;*/
+
+        c.Parameters.AddWithValue("@imie", name);
+        c.Parameters.AddWithValue("@nazwisko", lastname);
+        c.Parameters.AddWithValue("@odbiorca", odbiorca);
+        c.Parameters.AddWithValue("@tresc", message);
+        c.Parameters.AddWithValue("@data", date);
+        c.Parameters.AddWithValue("@godzina", time);
+        c.Parameters.AddWithValue("@ilosc_dostarczonych", ilosc_dostarczonych);
+        c.Parameters.AddWithValue("@ilosc_wyslanych", ilosc_wyslanych);
+
         int msgId = (int)c.ExecuteScalar();
 
         //zapisywanie wiadomości jako szablon
         if (((CheckBox)LoginView1.FindControl("CheckBox2")).Checked)
         {
-            SqlCommand d = new SqlCommand("INSERT INTO szablony (tresc, imie, nazwisko) VALUES('" + message + "','" + name + "','" + lastname + "')", mySQLConnection);
+            //SqlCommand d = new SqlCommand("INSERT INTO szablony (tresc, imie, nazwisko) VALUES('" + message + "','" + name + "','" + lastname + "')", mySQLConnection);
+            SqlCommand d = new SqlCommand("INSERT INTO szablony (@tresc, @imie, nazwisko)", mySQLConnection);
+            d.Parameters.AddWithValue("@tresc", message);
+            d.Parameters.AddWithValue("@imie", name);
+            d.Parameters.AddWithValue("@nazwisko",lastname);
             d.ExecuteNonQuery();
         }
 
         foreach (String id in ids)
         {
-            String query = "INSERT INTO statusy (id_mgs,sms_status,sms_index,sms_to) VALUES('" + msgId + "','" + 0 + "','" + id + "','" + 0 + "')";
+            int number = 0;
+            //String query = "INSERT INTO statusy (id_mgs,sms_status,sms_index,sms_to) VALUES('" + msgId + "','" + 0 + "','" + id + "','" + 0 + "')";
+            String query = "INSERT INTO statusy (@id_mgs,@sms_status,@sms_index,@sms_to)";
             SqlCommand d = new SqlCommand(query, mySQLConnection);
+            d.Parameters.AddWithValue("@id_mgs", msgId);
+            d.Parameters.AddWithValue("@sms_status", number);
+            d.Parameters.AddWithValue("@sms_index", id);
+            d.Parameters.AddWithValue("@sms_to", number);
             d.ExecuteNonQuery();
         }
 
@@ -215,6 +253,7 @@ public partial class _Default : System.Web.UI.Page
         */
         query = "select telefon from USOS_przedmioty inner join USOS_telefony " +
                 "on USOS_przedmioty.os_id = USOS_telefony.id WHERE USOS_przedmioty.zaj_cyk_id = " + id;
+
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
         cmd.ExecuteNonQuery();
 
@@ -303,6 +342,16 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
+    public static object GetDataValue(object value)
+    {
+        if (value == null)
+        {
+            return DBNull.Value;
+        }
+
+        return value;
+    }
+
     public SortedDictionary<int, ArrayList> getListGroup(String name, String surname)
     {
         SortedDictionary<int, ArrayList> listGroupByDay = new SortedDictionary<int, ArrayList>();
@@ -313,11 +362,15 @@ public partial class _Default : System.Web.UI.Page
         String query = "SELECT zaj_cyk_id, tzaj_kod, kod, nazwa, opis from USOS_pracownik ";
         if (name != "dziekanat")
         {
-            query = query + "WHERE USOS_pracownik.imie = \'" + name + "\' AND USOS_pracownik.nazwisko = \'" + surname + "\'";
+            query = query + "WHERE USOS_pracownik.imie = @name AND USOS_pracownik.nazwisko = @surname";
+
         }
         //query = query + " ORDER BY dzien";
 
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
+        cmd.Parameters.AddWithValue("@name", GetDataValue(name));
+        cmd.Parameters.AddWithValue("@surname", GetDataValue(surname));
+
         cmd.ExecuteNonQuery();
 
         SqlDataAdapter da = new SqlDataAdapter(cmd);
