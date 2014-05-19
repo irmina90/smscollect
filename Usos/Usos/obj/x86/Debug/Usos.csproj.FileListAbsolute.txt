@@ -10,3 +10,17 @@ C:\Users\Magdalena\Desktop\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyRef
 C:\Users\Magdalena\Desktop\Usos\Usos\bin\Debug\Usos.exe
 C:\Users\Magdalena\Desktop\Usos\Usos\bin\Debug\Usos.pdb
 C:\Users\Magdalena\Desktop\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.exe
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.pdb
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyReference.cache
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Usos.exe
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Usos.pdb
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
+\\files\students\s352068\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Newtonsoft.Json.xml
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.exe
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.pdb
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Usos.exe
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Usos.pdb
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Newtonsoft.Json.xml
+C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyReference.cache
