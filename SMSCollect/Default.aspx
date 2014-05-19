@@ -38,10 +38,10 @@
 
             var brand = $("#brands input:radio:checked").val();
             //$("#MainContent_TextBox1").text(brand);
-            document.getElementById("MainContent_TextBox1").value = brand;
+            document.getElementById('<%= LoginView1.FindControl("TextBox1").ClientID %>').value = brand;
 
-            var autor = $("#MainContent_lUser").Text; 
-            var text = $("#MainContent_TextBox1").val();
+            var autor = $("#MainContent_lUser").Text;
+            var text = $('#<%= LoginView1.FindControl("TextBox1").ClientID %>').val();
             text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
                 .replace(/ć/g, 'c').replace(/Ć/g, 'C')
                 .replace(/ę/g, 'e').replace(/Ę/g, 'E')
@@ -51,14 +51,13 @@
                 .replace(/ś/g, 's').replace(/Ś/g, 'S')
                 .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
                 .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
-            $("#MainContent_Label1").text(text);
-
-
+            $('#<%= LoginView1.FindControl("Label1").ClientID %>').text(text);
+         
             HideDialog();
             e.preventDefault();
         });
 
-        $("#Button1").click(function (e) {
+      /*  $("#Button1").click(function (e) {
             PageMethods.Usun_szablon(onSuccessMethod, onFailMethod);
             HideDialog();
             e.preventDefault();
@@ -68,7 +67,7 @@
 
 
         function onFailMethod(error) {
-        }
+        }*/
 
     })(jQuery);
 
@@ -102,13 +101,13 @@
     <br />
     <body>
     <asp:LoginView ID="LoginView1" runat="server">
-     <AnonymousTemplate>
+   <AnonymousTemplate>
             <div>
                 <h3><strong>SMS Collect</strong></h3>
-                <p>System SMS-owej komunikacji Wydział – Studenci. Umożliwia on wysyłanie wiadomości SMS przez pracowników Wydziału Matematyki i Informatyki</br> do przypisanych grup studentów.<div>
+                <p>System SMS-owej komunikacji Wydział – Studenci. Umożliwia on wysyłanie wiadomości SMS przez pracowników Wydziału Matematyki i Informatyki<br></br> do przypisanych grup studentów.<div>
             </div>
         </AnonymousTemplate>
-        <LoggedInTemplate>
+       <LoggedInTemplate> 
     <!-- poczatek lewej kolumny -->
     <div class="left-column"> 
      <!-- Wysyłasz wiadomość jako:&nbsp;<asp:Label ID="lUser" runat="server" Text="Label"></asp:Label> -->
@@ -202,8 +201,8 @@
     <div class="phonePic">  <!-- zdjecie telefonu, tylko dekstop -->
         <asp:Label ID="Label1" runat="server" Height="600px" style=" margin-left: 15%; margin-right: 15%; margin-top: 45%;" ></asp:Label>
     </div>
-    </LoggedInTemplate>
-    </asp:LoginView> 
+     </LoggedInTemplate> 
+     </asp:LoginView> 
     </body>
 
 </asp:Content>
