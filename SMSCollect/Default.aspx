@@ -38,10 +38,11 @@
 
             var brand = $("#brands input:radio:checked").val();
             //$("#MainContent_TextBox1").text(brand);
-            document.getElementById('<%= LoginView1.FindControl("TextBox1").ClientID %>').value = brand;
+            document.getElementById("MainContent_LoginView1_TextBox1").value = brand;
 
-            var autor = $("#MainContent_lUser").Text;
-            var text = $('#<%= LoginView1.FindControl("TextBox1").ClientID %>').val();
+            var autor = $("#HeadLoginView_HeadLoginName").Text;
+            var text = $("#MainContent_LoginView1_TextBox1").val();
+            
             text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
                 .replace(/ć/g, 'c').replace(/Ć/g, 'C')
                 .replace(/ę/g, 'e').replace(/Ę/g, 'E')
@@ -51,7 +52,7 @@
                 .replace(/ś/g, 's').replace(/Ś/g, 'S')
                 .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
                 .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
-            $('#<%= LoginView1.FindControl("Label1").ClientID %>').text(text);
+            $("#MainContent_LoginView1_Label1").text("Od " + autor + ": " + text);
          
             HideDialog();
             e.preventDefault();
