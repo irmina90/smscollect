@@ -26,8 +26,8 @@ public partial class _Default : System.Web.UI.Page
         lastname = (string)Session["LASTNAME"];
 
 
-        //name = "Rafał";
-        //lastname = "Jaworski";
+        //name = "Krzysztof";
+        //lastname = "Jassem";
 
         //wczytanie grup zajeciowych z bazy i umieszczenie ich w dropdownlist
         setListGroup(name, lastname);
@@ -251,8 +251,9 @@ public partial class _Default : System.Web.UI.Page
             }
         }
         */
-        query = "select telefon from USOS_przedmioty inner join USOS_telefony " +
-                "on USOS_przedmioty.os_id = USOS_telefony.id WHERE USOS_przedmioty.zaj_cyk_id = " + id;
+        query = "nr_telefonu from sms_przedmioty_studentow inner join sms_student"+
+                "  on sms_przedmioty_studentow.id_studenta= sms_student.id_studenta" +
+                " WHERE sms_przedmioty_studentow.id_przedmiotu = " + id;
 
         SqlCommand cmd = new SqlCommand(query, mySQLConnection);
         cmd.ExecuteNonQuery();
@@ -359,10 +360,10 @@ public partial class _Default : System.Web.UI.Page
         SqlConnection mySQLConnection = new SqlConnection();
         mySQLConnection.ConnectionString = connStr;
         mySQLConnection.Open();
-        String query = "SELECT zaj_cyk_id, tzaj_kod, kod, nazwa, opis from USOS_pracownik ";
+        String query = "SELECT zaj_cyk, tzaj_kod, kod, nazwa, opis from sms_przedmioty_pracownika ";
         if (name != "dziekanat")
         {
-            query = query + "WHERE USOS_pracownik.imie = @name AND USOS_pracownik.nazwisko = @surname";
+            query = query + "WHERE sms_przedmioty_pracownika.imie = @name AND sms_przedmioty_pracownika.nazwisko = @surname";
 
         }
         //query = query + " ORDER BY dzien";
@@ -388,7 +389,7 @@ public partial class _Default : System.Web.UI.Page
             int day = Convert.ToInt32(dt.Rows[i]["dzien"].ToString());
             String listString = code + " - " + course_name + " - " + group + " - " + time;*/
 
-            int id = Convert.ToInt32(dt.Rows[i]["zaj_cyk_id"].ToString());
+            int id = Convert.ToInt32(dt.Rows[i]["zaj_cyk"].ToString());
             String code = dt.Rows[i]["kod"].ToString();
             code = code.Substring(3);
             String course_name = dt.Rows[i]["nazwa"].ToString();

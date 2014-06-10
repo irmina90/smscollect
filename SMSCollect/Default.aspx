@@ -42,7 +42,7 @@
 
             var autor = $("#HeadLoginView_HeadLoginName").Text;
             var text = $("#MainContent_LoginView1_TextBox1").val();
-            
+
             text = text.replace(/ą/g, 'a').replace(/Ą/g, 'A')
                 .replace(/ć/g, 'c').replace(/Ć/g, 'C')
                 .replace(/ę/g, 'e').replace(/Ę/g, 'E')
@@ -53,7 +53,7 @@
                 .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
                 .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
             $("#MainContent_LoginView1_Label1").text("Od " + autor + ": " + text);
-         
+
             HideDialog();
             e.preventDefault();
         });

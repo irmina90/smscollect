@@ -233,7 +233,7 @@ namespace Usos
             url = this.currentInstallation.base_url;
             if (use_ssl)
                 url = url.Replace("http://", "https://");
-           // url += method.name + "?" + normalized_params + "&oauth_signature=" + HttpUtility.UrlEncode(signature);
+            url += method.name + "?" + normalized_params + "&oauth_signature=" + HttpUtility.UrlEncode(signature);
 
             return url;
         }

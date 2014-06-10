@@ -24,3 +24,11 @@ C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Usos.pdb
 C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
 C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\bin\Debug\Newtonsoft.Json.xml
 C:\Users\M\Desktop\usos\smscollect-master\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyReference.cache
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\obj\x86\Debug\Usos.exe
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\obj\x86\Debug\Usos.pdb
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\bin\Debug\Usos.exe
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\bin\Debug\Usos.pdb
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\obj\x86\Debug\Usos.csprojResolveAssemblyReference.cache
+C:\Users\Grygiel\Documents\GitHub\smscollect\Usos\Usos\bin\Debug\Usos.exe.config

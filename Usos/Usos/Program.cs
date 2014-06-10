@@ -20,8 +20,13 @@ namespace Usos
 
 
             Updater updater = new Updater();
-            //updater.update_course("1955");
-            updater.update_all_courses();
+            //updater.update_course("1872");
+            
+            //updater.update_all_courses();
+            //updater.update_participants();
+            updater.aktualizuj_nasze_nr_tel();
+            Console.WriteLine("Koniec");
+            Console.Read();
             
 
         }
